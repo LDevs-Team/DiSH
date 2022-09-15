@@ -1,6 +1,7 @@
 import os, zipfile, shutil
 import webbrowser
-ver=input("Insert DiSH version\n> ")
+import setup
+ver=setup.__version__
 print("Packaging with pyinstaller")
 exitcode = os.system("pyinstaller --name DiSH --onefile --windowed main.py --add-data main.py;. --add-data .env;.")
 if exitcode != 0:
