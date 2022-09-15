@@ -12,7 +12,7 @@ import typing
 import dotenv
 
 dotenv_path = os.path.normpath(os.environ["appdata"]+"/dish/.env") if os.path.exists(os.environ["appdata"]+"/dish/.env") else ".env"
-print(dotenv_path)
+
 try:
     dotenv.load_dotenv(dotenv_path)
 except:
