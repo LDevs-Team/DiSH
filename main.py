@@ -17,11 +17,11 @@ try:
     dotenv.load_dotenv(dotenv_path)
 except:
     pass
-btoken = None
+
 guild_id: int = 1005811804510892064
 category_id: int = 1009728599819042867
 try:
-    token: typing.Union[str, NoneType] = btoken or os.environ["TOKEN"]
+    token: os.environ["TOKEN"]
 except:
     exit("No token specified")
 class Dashboard(discord.ui.View):
