@@ -3,3 +3,4 @@ discord.py
 playsound
 pillow
 python-dotenv
+pyinstaller
