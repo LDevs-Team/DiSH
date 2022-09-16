@@ -27,5 +27,4 @@ try:
     os.remove("main.spec")
 except:
     pass
-print("Opening browser for upload")
-webbrowser.open("https://app.mediafire.com/myfiles")
+
