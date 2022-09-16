@@ -19,7 +19,7 @@ jobs:
   build:
     strategy:
       matrix:
-        os: [ubuntu-22.04, windows-2022, macos-11]
+        os: [ubuntu-latest, windows-latest]
     # The type of runner that the job will run on
     runs-on: ${{ matrix.os }}
 
