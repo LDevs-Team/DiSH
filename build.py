@@ -1,6 +1,7 @@
 import os, zipfile, shutil
 import webbrowser
 import setup
+import subprocess
 ver=setup.__version__
 print("Packaging with pyinstaller")
 exitcode = subprocess.run("pyinstaller --name DiSH --onefile --windowed main.py --add-data main.py;. --add-data .env;.")
