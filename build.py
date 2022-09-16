@@ -10,7 +10,7 @@ print("Moving files")
 g = glob.glob("dist/DiSH*")
 print(g)
 print("Creating zip")
-with zipfile.ZipFile("dist/DiSHv{}-{}.zip".format(ver, platform.system()), "w", zipfile.ZIP_DEFLATED) as zip:
+with zipfile.ZipFile("dist/DiSH-{}.zip".format(platform.system()), "w", zipfile.ZIP_DEFLATED) as zip:
     zip.write("main.py")
     zip.write("setup-registry.bat")
     zip.write("setup-shell-startup.bat")
