@@ -1,29 +1,20 @@
 import os, zipfile, shutil
 import webbrowser
-import setup
+import setup, glob, platform
 ver=setup.__version__
 print("Packaging with pyinstaller")
 exitcode = os.system("pyinstaller --name DiSH --onefile --windowed main.py")
 
 print("Moving files")
 
-shutil.move("dist/DiSH.exe", "DiSH.exe")
+g = glob.glob("dist/DiSH*")
+
 print("Creating zip")
-with zipfile.ZipFile("../../builds/DiSH/DiSHv{}.zip".format(ver), "w", zipfile.ZIP_DEFLATED) as zip:
-    zip.write("DiSH.exe")
+with zipfile.ZipFile("dist/DiSHv{}-{}.zip".format(ver, platform.system()), "w", zipfile.ZIP_DEFLATED) as zip:
+    zip.write()
     zip.write("main.py")
     zip.write("setup-registry.bat")
     zip.write("setup-shell-startup.bat")
-    zip.write(".env")
-
-print("Cleaning up")
-shutil.rmtree("build")
-shutil.rmtree("dist")
-shutil.move("DiSH.exe", "../../builds/DiSH/DiSHv{}.exe".format(ver))
-
-try:
-    os.remove("DiSH.spec")
-    os.remove("main.spec")
-except:
-    pass
+    for a in g:
+        zip.write(a)
 
