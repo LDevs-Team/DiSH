@@ -42,6 +42,7 @@ jobs:
           echo "python build.py" | bash
   deploy:
     runs-on: ubuntu-latest
+    needs: ["build"]
     steps:
       - name: Download build artifact
         run: echo IDK
