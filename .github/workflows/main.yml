@@ -40,12 +40,19 @@ jobs:
       - name: Package with PyInstaller
         run: |
           echo "python build.py" | bash
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: "DiSH-$runner.os"
+          path: "dist/DiSH*"
   deploy:
     runs-on: ubuntu-latest
     needs: ["build"]
     steps:
       - name: Download build artifact
-        run: echo IDK
+        uses: actions/download-artifact@v3.0.0
+        with:
+          name: DiSH-Linux.zip
       - name: Create Relese
         uses: ncipollo/release-action@v1.10.0
         with:
