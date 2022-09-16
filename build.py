@@ -3,9 +3,8 @@ import webbrowser
 import setup
 ver=setup.__version__
 print("Packaging with pyinstaller")
-exitcode = os.system("pyinstaller --name DiSH --onefile --windowed main.py --add-data main.py;. --add-data .env;.")
-if exitcode != 0:
-    exit("Error with pyinstaller")
+exitcode = subprocess.run("pyinstaller --name DiSH --onefile --windowed main.py --add-data main.py;. --add-data .env;.")
+
 print("Moving files")
 
 shutil.move("dist/DiSH.exe", "DiSH.exe")
