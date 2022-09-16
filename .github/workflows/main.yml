@@ -49,10 +49,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: ["build"]
     steps:
-      - name: Download build artifact
+      - name: Download build artifact (Linux)
         uses: actions/download-artifact@v3.0.0
         with:
-          name: DiSH-Linux.zip
+          name: DiSH-Linux
       - name: Create Relese
         uses: ncipollo/release-action@v1.10.0
         with:
