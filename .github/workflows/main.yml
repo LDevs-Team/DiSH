@@ -62,12 +62,16 @@ jobs:
         uses: actions/download-artifact@v3.0.0
         with:
           name: DiSH-Linux
+      - name: Download build artifact (Windows)
+        uses: actions/download-artifact@v3.0.0
+        with:
+          name: DiSH-Windows
       - name: Get short hash
         run: 'echo "GITHUB_SHA_SHORT=$(echo $GITHUB_SHA | cut -c 1-6)" >> $GITHUB_ENV'
       - name: Create Relese
         uses: ncipollo/release-action@v1.10.0
         with:
-          artifacts: "DiSH-Linux"
+          artifacts: "DiSH-*"
           tag: "v${{ env.GITHUB_SHA_SHORT }}"
           name: "DiSH-${{ env.GITHUB_SHA_SHORT }}"
       
