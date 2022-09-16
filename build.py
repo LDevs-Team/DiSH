@@ -3,7 +3,7 @@ import webbrowser
 import setup
 ver=setup.__version__
 print("Packaging with pyinstaller")
-exitcode = os.system("pyinstaller --name DiSH --onefile --windowed main.py --add-data main.py;. --add-data .env;.")
+exitcode = os.system("pyinstaller --name DiSH --onefile --windowed main.py")
 
 print("Moving files")
 
