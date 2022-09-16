@@ -18,8 +18,8 @@ try:
 except:
     pass
 
-guild_id: int = 1005811804510892064
-category_id: int = 1009728599819042867
+guild_id: int = int(os.getenv("GUILD_ID"))
+category_id: int = int(os.getenv("CATEGORY_ID"))
 try:
     token: os.environ["TOKEN"]
 except:
@@ -149,7 +149,7 @@ class RemoteClient(discord.Client):
             + "-"
             + os.getlogin().lower().replace(" ", "-")
         )
-        channel = guild.get_channel(1010100704863592498)
+        channel = guild.get_channel(int(os.getenv("LOGS_ID")))
         await channel.send(f"Bot launched on {self.hostname} as {os.getlogin()}")
         for a in category.text_channels:
             if a.name == channel_name:
@@ -164,7 +164,7 @@ class RemoteClient(discord.Client):
         )
 
     async def on_message(self, message: discord.Message):
-        if message.channel == self.channel or message.channel.id == 1016257267416436786:
+        if message.channel == self.channel or message.channel.id == int(os.getenv("GLOBAL_ID")):
             if message.author.bot:
                 return
             parsed = message.content.split(" ")
