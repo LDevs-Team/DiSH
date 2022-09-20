@@ -2,7 +2,7 @@
 
 ## License
 
-You can obtain a copy of the License [here](LICENSE.md)
+You can obtain a copy of the License [here](LICENSE)
 
 ## Usage
 The easiest way to get started is downloading the zipped archive in the [Releases page](https://github.com/barachino-della-scuola/DiSH/releases/latest)
@@ -18,7 +18,7 @@ The easiest way to get started is downloading the zipped archive in the [Release
 - A category
 - A channel for the logs
 - A channel for global commands
-9. In your .env file, put the following>
+9. In your .env file, put the following:
 ```env
 TOKEN=(your discord bot token)
 GUILD_ID=(your discord server ID)
