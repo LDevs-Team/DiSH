@@ -1,3 +1,9 @@
+## v7.3.1 (2022-09-20)
+
+### Fix
+
+- **ci**: fixed ci builds cause requirements
+
 ## v7.3.0 (2022-09-20)
 
 ### Feat
