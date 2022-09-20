@@ -10,7 +10,6 @@ with open("cz.yaml", "r") as stream:
 print("Packaging with pyinstaller")
 exitcode = os.system("pyinstaller --name DiSH --onefile --windowed main.py")
 
-print("Moving files")
 
 g = glob.glob("dist/DiSH*")
 print(g)
