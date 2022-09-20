@@ -1,3 +1,9 @@
+## v7.3.3 (2022-09-20)
+
+### Fix
+
+- **build**: fixed platform import
+
 ## v7.3.2 (2022-09-20)
 
 ### Fix
