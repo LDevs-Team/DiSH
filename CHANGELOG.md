@@ -1,3 +1,37 @@
+## v7.2.0 (2022-09-20)
+
+### Fix
+
+- **cz**: fixed commitzen
+- **CI**: fixed checkout version
+
+## v4d256f (2022-09-17)
+
+## v38ab0a (2022-09-16)
+
+### Fix
+
+- **env**: works
+
+## v98de8a (2022-09-16)
+
+## v7eefe0 (2022-09-16)
+
+### Feat
+
+- **ci**: use Bash
+
+### Fix
+
+- **ci**: use bash shell on default
+
+## vc62e7b (2022-09-16)
+
+### Feat
+
+- **ci**: Fixed Linux, windows and MacOS incoming
+- **CI**: testing part 69
+
 ## v7.1.0 (2022-09-15)
 
 ### Feat
