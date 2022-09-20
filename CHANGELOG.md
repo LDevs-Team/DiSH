@@ -1,3 +1,9 @@
+## v7.3.0 (2022-09-20)
+
+### Feat
+
+- **ci**: releases are now made based off commits and SemVer
+
 ## v7.2.1 (2022-09-20)
 
 ### Fix
