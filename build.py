@@ -1,5 +1,5 @@
 import os, zipfile, shutil
-import webbrowser
+import webbrowser, platform
 import setup, glob, yaml
 with open("cz.yaml", "r") as stream:
     try:
