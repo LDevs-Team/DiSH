@@ -1,3 +1,9 @@
+## v7.2.1 (2022-09-20)
+
+### Fix
+
+- **ci**: fixed cz with official action for CI
+
 ## v7.2.0 (2022-09-20)
 
 ### Fix
