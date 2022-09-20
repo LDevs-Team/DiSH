@@ -5,5 +5,3 @@ pillow
 python-dotenv
 pyinstaller
 pyyaml
- 
- 

@@ -1,3 +1,21 @@
+## v7.3.3 (2022-09-20)
+
+### Fix
+
+- **build**: fixed platform import
+
+## v7.3.2 (2022-09-20)
+
+### Fix
+
+- **build**: fixed yaml import
+
+## v7.3.1 (2022-09-20)
+
+### Fix
+
+- **ci**: fixed ci builds cause requirements
+
 ## v7.3.0 (2022-09-20)
 
 ### Feat

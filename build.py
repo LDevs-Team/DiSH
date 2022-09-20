@@ -1,6 +1,6 @@
-import os, zipfile, shutil
-import webbrowser
-import setup, glob, yaml
+import os, zipfile
+import platform
+import glob, yaml
 with open("cz.yaml", "r") as stream:
     try:
         ver = yaml.safe_load(stream)['commitizen']['version']
