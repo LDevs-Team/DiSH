@@ -1,7 +1,12 @@
 import os, zipfile, shutil
 import webbrowser
-import setup, glob, platform
-ver=setup.__version__
+import setup, glob, pyyaml
+with open("cz.yaml", "r") as stream:
+    try:
+        ver = yaml.safe_load(stream)['commitizen']['version']
+    except yaml.YAMLError as exc:
+        print(exc)
+
 print("Packaging with pyinstaller")
 exitcode = os.system("pyinstaller --name DiSH --onefile --windowed main.py")
 
