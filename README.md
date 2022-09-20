@@ -30,7 +30,7 @@ GLOBAL_ID=(your global channel ID)
 
 ## Installation
 If you are on windows, you can install DiSH using the installer (setup-shell-startup.bat, setup-registry.bat or setup-task-scheduler.bat)
-If you use linux, I recommend starting with systemd at boot the dish executable
+<br>If you use linux, I recommend starting with systemd at boot the dish executable
 
 ## Building from source
 To build from source, you will need: 
@@ -44,7 +44,7 @@ git clone (REPO URL)
 cd (repo name, in this case DiSH)
 pip install -r requirements.txt
 ```
-if you want to buildthe executable, do `python build.py`
+if you want to buil dthe executable, do `python build.py`<br>
 if you want to just start it, do `python main.py`. Note that for the bot to start, you will need a .env file (refer to Usage for how to create one)
 
 ## Contributing
