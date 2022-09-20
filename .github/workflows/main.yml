@@ -23,6 +23,8 @@ jobs:
         uses: actions/setup-python@v4.2.0
       - name: Setup packages
         run: python -m pip install -U commitizen
+      - name: List tags
+        run: git tag --list
       - name: Bump version
         run: cz bump
       - name: Generate changelog
