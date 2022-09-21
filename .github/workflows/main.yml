@@ -25,10 +25,10 @@ jobs:
           token: "${{ secrets.GITHUB_TOKEN }}"
           fetch-depth: 0
       - id: cz
-        name: Create bump and changelog
-        uses: commitizen-tools/commitizen-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+        name: Bump and changelog
+        run: |
+          cz bump --yes --files-only
+          cz changelog --yes
       - name: Print Version
         run: echo "Bumped to version ${{ steps.cz.outputs.version }}"
 
