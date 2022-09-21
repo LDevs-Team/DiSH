@@ -36,6 +36,7 @@ jobs:
           cz bump --yes --files-only
           cz changelog --yes
       - name: Git Commit and Push
+        uses: zwaldowski/git-commit-action@v1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: "bump: update version"
