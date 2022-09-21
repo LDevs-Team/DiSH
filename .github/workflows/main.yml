@@ -16,19 +16,32 @@ on:
 jobs:
   bump_version:
     if: "!startsWith(github.event.head_commit.message, 'bump:')"
+    
     runs-on: ubuntu-latest
     name: "Bump version and create changelog with commitizen"
+    
     steps:
       - name: Check out
         uses: actions/checkout@v2
         with:
           token: "${{ secrets.GITHUB_TOKEN }}"
           fetch-depth: 0
-      - id: cz
+      
+      - name: Setup Python
+        uses: actions/setup-python@v4.2.0
+      - name: Install packages
+        run: pip install -U Commitizen 
+      - id: Bump and changelog with commitzen
         name: Bump and changelog
         run: |
           cz bump --yes --files-only
           cz changelog --yes
+      - name: Git Commit and Push
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "bump: update version"
+          name: github-actions[bot]
+          email: github-actions[bot]@users.noreply.github.com
       - name: Print Version
         run: echo "Bumped to version ${{ steps.cz.outputs.version }}"
 
