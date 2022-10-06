@@ -40,7 +40,7 @@ To build from source, you will need:
 
 In a terminal do 
 ``` bat
-git clone (REPO URL)
+git clone [ REPO URL in this case https://github.com/Baracchino-Della-Scuola/DiSH ]
 cd (repo name, in this case DiSH)
 pip install -r requirements.txt
 ```
