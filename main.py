@@ -1,14 +1,11 @@
-from fileinput import filename
-from types import NoneType
 import traceback
 import requests
 import discord, socket, os, subprocess, shutil, webbrowser, playsound, aiohttp
 from PIL import ImageGrab
-from io import BytesIO, TextIOWrapper
+from io import BytesIO
 import asyncio
 import functools
 import time
-import typing
 import dotenv
 
 dotenv_path = os.path.normpath(os.environ["appdata"]+"/dish/.env") if os.path.exists(os.environ["appdata"]+"/dish/.env") else ".env"
