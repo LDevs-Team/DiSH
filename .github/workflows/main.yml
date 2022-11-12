@@ -38,8 +38,8 @@ jobs:
       - name: Git Commit and Push
         uses: zwaldowski/git-commit-action@v1
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "bump: update version"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          commit_message: "bump: update version"
           name: github-actions[bot]
           email: github-actions[bot]@users.noreply.github.com
       - name: Print Version
