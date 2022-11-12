@@ -33,8 +33,8 @@ jobs:
         run: pip install -U Commitizen  
       - name: Bump and changelog
         run: |
-          cz bump --yes --files-only
-          cz changelog --yes
+          cz bump --files-only
+          cz changelog
       - name: Git Commit and Push
         uses: zwaldowski/git-commit-action@v1
         with:
