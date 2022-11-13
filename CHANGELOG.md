@@ -1,14 +1,28 @@
-## v7.3.5 (2022-09-20)
+## Unreleased
 
 ### Fix
 
+- **ci**: fixed syntax
+- **ci**: trying to fix CI versioning
+- **ci**: fix CI to some extent
+- **cz**: reverted
+- **cz**: reverted version
+- **ci**: hopefully fixed CI push
+- **ci**: fixing CI
+- **ci**: fixed credentials
+- **ci**: fixed cz
+- **ci**: fixed syntax
+- **ci**: fixing permissions
+- **ci**: fixed SyntaxError in CI
+- **CI**: fixing CI
+- **ci**: trying to fix CI
+- **ci**: fixed CI ig
+- **cz**: trying to fix commitzen
+- **installer**: fixed installer
+- **docs**: fixed indent
 - **docs**: fixed README.md
 
 ## v7.3.4 (2022-09-20)
-
-### Fix
-
-- **build**: fixed builds
 
 ## v7.3.3 (2022-09-20)
 
@@ -21,6 +35,7 @@
 ### Fix
 
 - **build**: fixed yaml import
+- **build**: fixed builds
 
 ## v7.3.1 (2022-09-20)
 
@@ -42,60 +57,17 @@
 
 ## v7.2.0 (2022-09-20)
 
+### Feat
+
+- **ci**: use Bash
+- **ci**: Fixed Linux, windows and MacOS incoming
+- **CI**: testing part 69
+- **env**: removed unnecessary prints
+- v7
+
 ### Fix
 
 - **cz**: fixed commitzen
 - **CI**: fixed checkout version
-
-## v4d256f (2022-09-17)
-
-## v38ab0a (2022-09-16)
-
-### Fix
-
 - **env**: works
-
-## v98de8a (2022-09-16)
-
-## v7eefe0 (2022-09-16)
-
-### Feat
-
-- **ci**: use Bash
-
-### Fix
-
 - **ci**: use bash shell on default
-
-## vc62e7b (2022-09-16)
-
-### Feat
-
-- **ci**: Fixed Linux, windows and MacOS incoming
-- **CI**: testing part 69
-
-## v7.1.0 (2022-09-15)
-
-### Feat
-
-- **env**: removed unnecessary prints
-
-## v7.0.0 (2022-09-15)
-
-## v6.0.0 (2022-09-15)
-
-## v5.0.0 (2022-09-15)
-
-## v4.0.0 (2022-09-15)
-
-## v3.0.0 (2022-09-15)
-
-## v2.0.0 (2022-09-15)
-
-## v1.0.0 (2022-09-15)
-
-## v0.1.0 (2022-09-15)
-
-### Feat
-
-- v7
