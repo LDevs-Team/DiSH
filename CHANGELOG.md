@@ -2,6 +2,7 @@
 
 ### Fix
 
+- **ci**: fix CI to some extent
 - **cz**: reverted
 - **cz**: reverted version
 - **ci**: hopefully fixed CI push
