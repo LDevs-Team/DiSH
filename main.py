@@ -9,17 +9,17 @@ import time
 import dotenv
 
 dotenv_path = os.path.normpath(os.environ["appdata"]+"/dish/.env") if os.path.exists(os.environ["appdata"]+"/dish/.env") else ".env"
-
 try:
     dotenv.load_dotenv(dotenv_path)
 except:
-    pass
+    traceback.print_exc()
 
 guild_id: int = int(os.getenv("GUILD_ID"))
 category_id: int = int(os.getenv("CATEGORY_ID"))
 try:
-    token: os.environ["TOKEN":str]
+    token:str = os.environ["TOKEN"]
 except:
+    traceback.print_exc()
     exit("No token specified")
 
 editor_filename = ""

@@ -3,5 +3,7 @@
     "diffEditor.codeLens": true,
     "docwriter.progress.trackMethods": true,
     "docwriter.progress.trackClasses": true,
-    "docwriter.progress.trackTypes": true
+    "docwriter.progress.trackTypes": true,
+    "nuxt.isNuxtApp": false,
+    "python.formatting.provider": "black"
 }
