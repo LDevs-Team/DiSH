@@ -1,5 +1,5 @@
 import os, zipfile
-import platform
+import platform, shutil
 import glob, yaml
 with open("cz.yaml", "r") as stream:
     try:
@@ -13,11 +13,19 @@ exitcode = os.system("pyinstaller --name DiSH --onefile --windowed main.py")
 
 g = glob.glob("dist/DiSH*")
 print(g)
+for a in g:
+    shutil.move(a, ".")
 print("Creating zip")
-with zipfile.ZipFile("dist/DiSH-{}.zip".format(platform.system()), "w", zipfile.ZIP_DEFLATED) as zip:
+with zipfile.ZipFile("DiSH-{}.zip".format(platform.system()), "w", zipfile.ZIP_DEFLATED) as zip:
     zip.write("main.py")
     zip.write("setup-registry.bat")
     zip.write("setup-shell-startup.bat")
-    for a in g:
-        zip.write(a)
-
+    try:
+        zip.write("DiSH.exe")
+    except:
+        pass
+    try:
+        zip.write("DiSH")
+    except:
+        pass
+    zip.write("cz.yaml")
