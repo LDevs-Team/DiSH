@@ -15,36 +15,7 @@ on:
 jobs:
   bump_version:
     
-    if: "!startsWith(github.event.head_commit.message, 'bump:')"
     
-    runs-on: ubuntu-latest
-    name: "Bump version and create changelog with commitizen"
-    
-    steps:
-      - name: Check out
-        uses: actions/checkout@v2
-        with:
-          token: "${{ secrets.GITHUB_TOKEN }}"
-          fetch-depth: 0
-      
-      - name: Setup Python
-        uses: actions/setup-python@v4.2.0
-      - name: Install packages
-        run: pip install -U Commitizen  
-      - name: Bump and changelog
-        run: |
-          cz bump --files-only
-          cz changelog
-      - name: Git Commit and Push
-        uses: EndBug/add-and-commit@v8
-        with:
-          
-          message: "bump: update version"
-          author_name: github-actions[bot]
-          author_email: github-actions[bot]@users.noreply.github.com
-      - name: Print Version
-        run: echo "Bumped to version ${{ steps.cz.outputs.version }}"
-
           
         
   
@@ -88,11 +59,23 @@ jobs:
           path: "dist/DiSH*"
   deploy:
     runs-on: ubuntu-latest
+    if: "!startsWith(github.event.head_commit.message, 'bump:')"
+    
+      
+      
+
      
     needs: ["build"]
     steps:
+    
       
-      - uses: actions/checkout@v3
+      
+      - name: Check out
+        uses: actions/checkout@v2
+        with:
+          token: "${{ secrets.GITHUB_TOKEN }}"
+          fetch-depth: 0
+
       - name: Download build artifact (Linux)
         uses: actions/download-artifact@v3.0.0
         with:
@@ -104,7 +87,23 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v4.2.0
       - name: Setup packages
-        run: python -m pip install -r requirements.txt
+        run: |
+          python -m pip install -r requirements.txt
+          python -m  pip install -U Commitizen  
+      - name: Bump and changelog
+        run: |
+          cz bump --files-only
+          cz changelog
+      - name: Git Commit and Push
+        uses: EndBug/add-and-commit@v8
+        with:
+          
+          message: "bump: update version"
+          author_name: github-actions[bot]
+          author_email: github-actions[bot]@users.noreply.github.com
+      - name: Print Version
+        run: echo "Bumped to version ${{ steps.cz.outputs.version }}"
+      
       - name: Get short hash
         run: |
           echo "VER=$(python version_exporter.py)" >> $GITHUB_ENV
