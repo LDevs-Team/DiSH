@@ -65,14 +65,7 @@ jobs:
           token: "${{ secrets.GITHUB_TOKEN }}"
           fetch-depth: 0
 
-      - name: Download build artifact (Linux)
-        uses: actions/download-artifact@v3.0.0
-        with:
-          name: DiSH-Linux
-      - name: Download build artifact (Windows)
-        uses: actions/download-artifact@v3.0.0
-        with:
-          name: DiSH-Windows
+      
       - name: Setup Python
         uses: actions/setup-python@v4.2.0
       - name: Setup packages
@@ -90,6 +83,14 @@ jobs:
           message: "bump: update version"
           author_name: github-actions[bot]
           author_email: github-actions[bot]@users.noreply.github.com
+      - name: Download build artifact (Linux)
+        uses: actions/download-artifact@v3.0.0
+        with:
+          name: DiSH-Linux
+      - name: Download build artifact (Windows)
+        uses: actions/download-artifact@v3.0.0
+        with:
+          name: DiSH-Windows
       - name: Print Version
         run: echo "Bumped to version ${{ steps.cz.outputs.version }}"
       
