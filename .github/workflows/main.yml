@@ -108,7 +108,7 @@ jobs:
       - name: Get short hash
         run: |
           echo "VER=$(python version_exporter.py)" >> $GITHUB_ENV
-          echo ${{ env.ver }}
+          python version_exporter.py
       - name: Create Relese
         if: startsWith(github.event.head_commit.message, 'bump') != true
         uses: ncipollo/release-action@v1.10.0
