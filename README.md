@@ -1,5 +1,5 @@
 # DiSH
-
+# DISCLAMER: We started this project only for good purposes - this program is NOT INTENDED FOR MALICIOUS USE
 ## License
 
 You can obtain a copy of the License [here](LICENSE)
