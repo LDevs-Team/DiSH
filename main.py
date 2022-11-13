@@ -13,6 +13,7 @@ from datetime import datetime
 import logging
 import utils
 import logging.handlers
+import yaml 
 
 # Dirs and other useless stuff start here!
 
@@ -59,6 +60,15 @@ log = logging.getLogger("")
 log.addHandler(fileHandler)
 sys.stdout = utils.StreamToLogger(log, logging.INFO)
 sys.stderr = utils.StreamToLogger(log, logging.ERROR)
+
+
+with open("cz.yaml", "r") as stream:
+    try:
+        version = yaml.safe_load(stream)['commitizen']['version']
+    except yaml.YAMLError as exc:
+        print(exc)
+
+log.info(f"Starting DiSH v{version}")
 
 # DiSH variables start here!
 
