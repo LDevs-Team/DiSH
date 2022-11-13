@@ -2,6 +2,16 @@
 
 ### Feat
 
+- **ci**: only make release when asked
+
+### Fix
+
+- added cz to zip !
+
+## v8.2.0 (2022-11-13)
+
+### Feat
+
 - **log**: log now prints the version
 
 ## v8.1.0 (2022-11-13)
