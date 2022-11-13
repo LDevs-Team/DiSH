@@ -7,6 +7,8 @@ You can obtain a copy of the License [here](LICENSE)
 ## Usage
 The easiest way to get started is downloading the zipped archive in the [Releases page](https://github.com/barachino-della-scuola/DiSH/releases/latest)
 
+If you want to use a nightly version, go to the actions tab (you have to be signed in), choose the commit and download the artifact according to your OS
+
 1. Firstly, download the DiSH-{OS}.zip file according to the OS you have (In this case Windows)
 2. Unzip the archive, you will find a DiSH zipped folder, extract it.
 3. Create a file named `.env`.
