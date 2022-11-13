@@ -52,8 +52,8 @@ jobs:
           path: "DiSH-*.zip"
   deploy:
     runs-on: ubuntu-latest
-    if: "!startsWith(github.event.head_commit.message, 'bump:')"
-     
+    if: |
+      endsWith(github.event.head_commit.message, ' !') 
     needs: ["build"]
     steps:
     
@@ -99,7 +99,6 @@ jobs:
           echo "VER=$(python version_exporter.py)" >> $GITHUB_ENV
           python version_exporter.py
       - name: Create Relese
-        if: startsWith(github.event.head_commit.message, 'bump') != true
         uses: ncipollo/release-action@v1.10.0
         with:
           artifacts: "DiSH-*"
