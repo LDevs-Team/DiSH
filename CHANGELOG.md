@@ -2,6 +2,8 @@
 
 ### Fix
 
+- **ci**: fixed syntax
+- **ci**: trying to fix CI versioning
 - **ci**: fix CI to some extent
 - **cz**: reverted
 - **cz**: reverted version
