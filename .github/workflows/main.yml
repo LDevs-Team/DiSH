@@ -13,6 +13,12 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
+  bugfix:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v3
   bump_version:
     
     if: "!startsWith(github.event.head_commit.message, 'bump:')"
@@ -36,9 +42,9 @@ jobs:
           cz bump --files-only
           cz changelog
       - name: Git Commit and Push
-        uses: zwaldowski/git-commit-action@v1
+        uses: GuillaumeFalourd/git-commit-push@v1.3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          access_token: ${{ secrets.GITHUB_TOKEN }}
           commit_message: "bump: update version"
           name: github-actions[bot]
           email: github-actions[bot]@users.noreply.github.com
