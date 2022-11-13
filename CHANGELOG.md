@@ -2,6 +2,14 @@
 
 ### Fix
 
+- fixed CI
+- **ignore**: fixed gitignore
+- fixed syntax
+
+## v7.3.5 (2022-11-13)
+
+### Fix
+
 - **ci**: fixed syntax
 - **ci**: trying to fix CI versioning
 - **ci**: fix CI to some extent
