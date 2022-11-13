@@ -52,8 +52,8 @@ jobs:
           path: "dist/DiSH*"
   deploy:
     runs-on: ubuntu-latest
-    if: "!startsWith(github.event.head_commit.message, 'bump:')"
-     
+    if: |
+      endsWith(github.event.head_commit.message, ' !') 
     needs: ["build"]
     steps:
     
