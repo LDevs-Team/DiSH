@@ -2,6 +2,8 @@
 
 ### Fix
 
+- **cz**: reverted version
+- **ci**: hopefully fixed CI push
 - **ci**: fixing CI
 - **ci**: fixed credentials
 - **ci**: fixed cz
