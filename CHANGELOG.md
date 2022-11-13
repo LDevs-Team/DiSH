@@ -1,5 +1,11 @@
 ## Unreleased
 
+### Feat
+
+- added logging
+
+## v8.0.0 (2022-11-13)
+
 ### Fix
 
 - fixed CI
