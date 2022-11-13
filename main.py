@@ -68,6 +68,7 @@ with open("cz.yaml", "r") as stream:
     except yaml.YAMLError as exc:
         print(exc)
 
+
 log.info(f"Starting DiSH v{version}")
 
 # DiSH variables start here!
