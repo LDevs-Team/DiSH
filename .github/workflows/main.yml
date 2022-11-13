@@ -13,15 +13,8 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  bump_version:
-    
-    
-          
-        
-  
   # This workflow contains a single job called "build"
   build:
-    needs: ["bump_version"]
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
@@ -60,10 +53,6 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     if: "!startsWith(github.event.head_commit.message, 'bump:')"
-    
-      
-      
-
      
     needs: ["build"]
     steps:
