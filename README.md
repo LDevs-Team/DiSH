@@ -49,6 +49,16 @@ pip install -r requirements.txt
 if you want to buil dthe executable, do `python build.py`<br>
 if you want to just start it, do `python main.py`. Note that for the bot to start, you will need a .env file (refer to Usage for how to create one)
 
+## token
+- If you want to use DiSH you need a Discord bot token, a build ID, a global and logs ID:
+token: your bot token
+guild ID: your server ID
+logs ID: your logs channel ID
+category ID: the ID of the category that IdSH will use to create channels
+how to use the example.env
+open the example.env and fill in the informations
+remove the example from example.env aka rename it to simply .env
+
 ## Contributing
 This program follow the conventional commit standard and, when you open a PR, you should follow the conventional commit standard to avoid you PR not being merged.
 
