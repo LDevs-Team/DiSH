@@ -1,5 +1,12 @@
 ## Unreleased
 
+### Fix
+
+- **play**: fixed playsound not working !
+- allow "." in hostname
+
+## v8.3.0 (2022-11-13)
+
 ### Feat
 
 - **ci**: only make release when asked
