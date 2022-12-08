@@ -311,9 +311,9 @@ class RemoteClient(discord.Client):
         guild: discord.Guild = self.get_guild(self.guild_id)
         category: discord.CategoryChannel = guild.get_channel(self.category_id)
         channel_name: str = (
-            self.hostname.lower().replace(" ", "-")
+            self.hostname.lower().replace(" ", "-").replace(".", "")
             + "-"
-            + os.getlogin().lower().replace(" ", "-")
+            + os.getlogin().lower().replace(" ", "-").replace(".", "")
         )
         channel = guild.get_channel(int(os.getenv("LOGS_ID")))
         await channel.send(f"Bot launched on {self.hostname} as {os.getlogin()}")
