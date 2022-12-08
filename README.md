@@ -34,7 +34,7 @@ GLOBAL_ID=(your global channel ID)
 
 ## Compatibility
 DiSH works on Windows 8.1 and above
-Windows Server is not officially supported
+<br>Windows Server is not officially supported
 
 ## Installation
 If you are on windows, you can install DiSH using the installer (setup-shell-startup.bat, setup-registry.bat or setup-task-scheduler.bat)
