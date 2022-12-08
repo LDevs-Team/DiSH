@@ -36,7 +36,7 @@ GLOBAL_ID=(your global channel ID)
 DiSH works on Windows 8.1 and above
 <br>Windows Server is not officially supported
 Python 3.11 is recommended but 3.10 should work well.
-Python 3.8 is only supported for self-compilations
+We are trying to get Python 3.8 to work, we will update the README with more informations when/if we will get a supported version
 
 ## Installation
 If you are on windows, you can install DiSH using the installer (setup-shell-startup.bat, setup-registry.bat or setup-task-scheduler.bat)
