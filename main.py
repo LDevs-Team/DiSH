@@ -19,7 +19,7 @@ import pyautogui
 
 # Dirs and other useless stuff start here!
 
-pyautogui.PAUSE = .3
+pyautogui.PAUSE = 0.25
 
 formatted_now = datetime.now().strftime("%d-%m-%Y %Y-%M-%S")
 
@@ -52,7 +52,7 @@ fileHandler = logging.handlers.RotatingFileHandler(
     filename=f"{dish_dir}/dish{formatted_now}.log",
     encoding="utf-8",
     maxBytes=32 * 1024 * 1024,  # 32 MiB
-    backupCount=5
+    backupCount=5,
 )
 
 console = logging.StreamHandler()
@@ -68,7 +68,7 @@ sys.stderr = utils.StreamToLogger(log, logging.ERROR)
 
 with open("cz.yaml", "r") as stream:
     try:
-        version = yaml.safe_load(stream)['commitizen']['version']
+        version = yaml.safe_load(stream)["commitizen"]["version"]
     except yaml.YAMLError as exc:
         print(exc)
 
@@ -88,17 +88,20 @@ except:
 editor_filename = ""
 file_content = ""
 
-async def press(client: discord.Client, message: discord.Message, args:str):
+
+async def press(client: discord.Client, message: discord.Message, args: str):
     keys = args.split(" ")
     for a in keys:
         pyautogui.press(a)
     await message.reply(f"Pressed {', '.join(keys)}")
 
-async def typewrite(client: discord.Client, message: discord.Message, args:str):
+
+async def typewrite(client: discord.Client, message: discord.Message, args: str):
     pyautogui.typewrite(args)
     await message.reply(f"Typed {args}")
 
-async def hotkey(client: discord.Client, message: discord.Message, args:str):
+
+async def hotkey(client: discord.Client, message: discord.Message, args: str):
     keys = args.split(" ")
     for a in keys:
         pyautogui.keyDown(a)
@@ -106,20 +109,22 @@ async def hotkey(client: discord.Client, message: discord.Message, args:str):
         pyautogui.keyUp(a)
     await message.reply(f"Send hotkey with commands {', '.join(keys)}")
 
-async def specialKeys(client:discord.Client, message:discord.Message, args:str):
+
+async def specialKeys(client: discord.Client, message: discord.Message, args: str):
     await message.reply("\n".join(pyautogui.KEY_NAMES))
 
-async def loc(client:discord.Client, message:discord.Message, args:str):
-    if (len(message.attachments) == 0):
+
+async def loc(client: discord.Client, message: discord.Message, args: str):
+    if len(message.attachments) == 0:
         return await message.reply("No file specified")
     fileUrl = message.attachments[0].url
     res = requests.get(fileUrl, stream=True)
     with open(message.attachments[0].filename, "wb") as f:
         f.write(res.content)
-    
+
     try:
-        pos = pyautogui.locateOnScreen(message.attachments[0].filename, confidence=.8)
-        if (pos == None):
+        pos = pyautogui.locateOnScreen(message.attachments[0].filename, confidence=0.8)
+        if pos == None:
             os.remove(message.attachments[0].filename)
             return await message.reply("Image not found :/")
         pyautogui.click(pos)
@@ -128,12 +133,13 @@ async def loc(client:discord.Client, message:discord.Message, args:str):
         print(e)
         await message.reply("No image found :/")
     os.remove(message.attachments[0].filename)
-        
 
-async def click(client:discord.Client, message:discord.Message, args:str):
+
+async def click(client: discord.Client, message: discord.Message, args: str):
     pos = args.split(" ")
     pyautogui.click(int(pos[0]), int(pos[1]))
     await message.reply("Clicked at " + str(pos))
+
 
 async def play(client: discord.Client, message: discord.Message, args: str):
     """
@@ -148,12 +154,16 @@ async def play(client: discord.Client, message: discord.Message, args: str):
     """
     async with aiohttp.ClientSession() as session:
         async with session.get(message.attachments[0].url) as res:
-            print("Extension of file: " + message.attachments[0].filename.split(".")[-1])
-            
+            print(
+                "Extension of file: " + message.attachments[0].filename.split(".")[-1]
+            )
+
             with open(message.attachments[0].filename, "wb") as f:
                 f.write(await res.read())
     playsound(message.attachments[0].filename)
     os.remove(message.attachments[0].filename)
+
+
 def exec_command(command):
     """
     It executes a command and returns the output and error messages as a tuple.
@@ -356,11 +366,11 @@ class RemoteClient(discord.Client):
             "download": download,
             "edit": edit,
             "press": press,
-            "typewrite":typewrite,
-            "hotkey":hotkey,
+            "typewrite": typewrite,
+            "hotkey": hotkey,
             "special": specialKeys,
-            "loc":loc,
-            "click":click
+            "loc": loc,
+            "click": click,
         }
 
     async def on_ready(self):
@@ -448,7 +458,5 @@ if __name__ == "__main__":
             pass
         time.sleep(1)
 
-    client = RemoteClient(
-        guild_id, category_id, intents=discord.Intents.all()
-    )
+    client = RemoteClient(guild_id, category_id, intents=discord.Intents.all())
     client.run(token, log_level=logging.INFO)
