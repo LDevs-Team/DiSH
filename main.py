@@ -7,12 +7,8 @@ import asyncio
 import functools
 import time
 import dotenv
-import sys
 import platform
 from datetime import datetime
-import logging
-import utils
-import logging.handlers
 import yaml
 from playsound import playsound
 import pyautogui
@@ -40,30 +36,7 @@ try:
 except:
     traceback.print_exc()
 
-# Log config starts here
-
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s - %(levelname)s - %(message)s",
-    filemode="w",
-)
-
-fileHandler = logging.handlers.RotatingFileHandler(
-    filename=f"{dish_dir}/dish{formatted_now}.log",
-    encoding="utf-8",
-    maxBytes=32 * 1024 * 1024,  # 32 MiB
-    backupCount=5,
-)
-
-console = logging.StreamHandler()
-logging.getLogger("discord.http").setLevel(logging.INFO)
-formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
-console.setFormatter(formatter)
-# logging.getLogger("").addHandler(console)
-log = logging.getLogger("")
-log.addHandler(fileHandler)
-sys.stdout = utils.StreamToLogger(log, logging.INFO)
-sys.stderr = utils.StreamToLogger(log, logging.ERROR)
+# Useless stuff starts here
 
 
 with open("cz.yaml", "r") as stream:
@@ -73,7 +46,7 @@ with open("cz.yaml", "r") as stream:
         print(exc)
 
 
-log.info(f"Starting DiSH v{version}")
+print(f"Starting DiSH v{version}")
 
 # DiSH variables start here!
 
@@ -459,4 +432,4 @@ if __name__ == "__main__":
         time.sleep(1)
 
     client = RemoteClient(guild_id, category_id, intents=discord.Intents.all())
-    client.run(token, log_level=logging.INFO)
+    client.run(token)
