@@ -15,6 +15,7 @@ import utils
 import logging.handlers
 import yaml
 from playsound import playsound
+import pyautogui
 
 # Dirs and other useless stuff start here!
 
@@ -85,6 +86,26 @@ except:
 editor_filename = ""
 file_content = ""
 
+async def press(client: discord.Client, message: discord.Message, args:str):
+    keys = args.split(" ")
+    for a in keys:
+        pyautogui.press(a)
+    await message.reply(f"Pressed {', '.join(keys)}")
+
+async def typewrite(client: discord.Client, message: discord.Message, args:str):
+    pyautogui.typewrite(args)
+    await message.reply(f"Typed {args}")
+
+async def hotkey(client: discord.Client, message: discord.Message, args:str):
+    keys = args.split(" ")
+    for a in keys:
+        pyautogui.keyDown(a)
+    for a in reversed(keys):
+        pyautogui.keyUp(a)
+    await message.reply(f"Send hotkey with commands {', '.join(keys)}")
+
+async def specialKeys(client:discord.Client, message:discord.Message, args:str):
+    await message.reply("\n".join(pyautogui.KEY_NAMES))
 
 async def play(client: discord.Client, message: discord.Message, args: str):
     """
@@ -306,6 +327,9 @@ class RemoteClient(discord.Client):
             "upload": upload,
             "download": download,
             "edit": edit,
+            "press": press,
+            "typewrite":typewrite,
+            "hotkey":hotkey
         }
 
     async def on_ready(self):
