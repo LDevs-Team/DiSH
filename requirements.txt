@@ -5,3 +5,5 @@ pillow
 python-dotenv
 pyinstaller
 pyyaml
+pyautogui
+opencv-python
