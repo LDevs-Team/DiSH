@@ -1,5 +1,19 @@
 ## Unreleased
 
+### Feat
+
+- added mouse movement !
+- added keyboard commands
+- **ci**: trying to add MacOS !
+
+### Fix
+
+- fixed requirements !
+- **ci**: fixed setup python !
+- **ci**: fixed MacOS ci to force using python 3.11
+
+## v8.3.1 (2022-12-08)
+
 ### Fix
 
 - **play**: fixed playsound not working !
