@@ -19,6 +19,8 @@ import pyautogui
 
 # Dirs and other useless stuff start here!
 
+pyautogui.PAUSE = .3
+
 formatted_now = datetime.now().strftime("%d-%m-%Y %Y-%M-%S")
 
 dish_dir = (
@@ -106,6 +108,32 @@ async def hotkey(client: discord.Client, message: discord.Message, args:str):
 
 async def specialKeys(client:discord.Client, message:discord.Message, args:str):
     await message.reply("\n".join(pyautogui.KEY_NAMES))
+
+async def loc(client:discord.Client, message:discord.Message, args:str):
+    if (len(message.attachments) == 0):
+        return await message.reply("No file specified")
+    fileUrl = message.attachments[0].url
+    res = requests.get(fileUrl, stream=True)
+    with open(message.attachments[0].filename, "wb") as f:
+        f.write(res.content)
+    
+    try:
+        pos = pyautogui.locateOnScreen(message.attachments[0].filename, confidence=.8)
+        if (pos == None):
+            os.remove(message.attachments[0].filename)
+            return await message.reply("Image not found :/")
+        pyautogui.click(pos)
+        await message.reply("Clicked at " + str(pos))
+    except Exception as e:
+        print(e)
+        await message.reply("No image found :/")
+    os.remove(message.attachments[0].filename)
+        
+
+async def click(client:discord.Client, message:discord.Message, args:str):
+    pos = args.split(" ")
+    pyautogui.click(int(pos[0]), int(pos[1]))
+    await message.reply("Clicked at " + str(pos))
 
 async def play(client: discord.Client, message: discord.Message, args: str):
     """
@@ -329,7 +357,10 @@ class RemoteClient(discord.Client):
             "edit": edit,
             "press": press,
             "typewrite":typewrite,
-            "hotkey":hotkey
+            "hotkey":hotkey,
+            "special": specialKeys,
+            "loc":loc,
+            "click":click
         }
 
     async def on_ready(self):
