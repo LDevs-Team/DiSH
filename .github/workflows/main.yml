@@ -96,7 +96,7 @@ jobs:
       - name: Download build artifact (MacOS)
         uses: actions/download-artifact@v3.0.0
         with:
-          name: DiSH-MacOS
+          name: DiSH-macOS
       - name: Print Version
         run: echo "Bumped to version ${{ steps.cz.outputs.version }}"
       
