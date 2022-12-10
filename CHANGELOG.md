@@ -8,6 +8,8 @@
 
 ### Fix
 
+- fixed build no. !
+- **ci**: fixed CI artifacts download !
 - fixed requirements !
 - **ci**: fixed setup python !
 - **ci**: fixed MacOS ci to force using python 3.11
