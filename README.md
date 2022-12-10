@@ -32,6 +32,12 @@ GLOBAL_ID=(your global channel ID)
 ```
 10. Start the DiSH executable. If nothing went wrong, you should see a message in your logs channel saying "Bot started successfully on (YOUR PC NAME) as (CURRENT USER)"
 
+## Compatibility
+DiSH works on Windows 8.1 and above
+<br>Windows Server is not officially supported
+Python 3.11 is recommended but 3.10 should work well.
+We are trying to get Python 3.8 to work, we will update the README with more informations when/if we will get a supported version
+
 ## Installation
 If you are on windows, you can install DiSH using the installer (setup-shell-startup.bat, setup-registry.bat or setup-task-scheduler.bat)
 <br>If you use linux, I recommend starting with systemd at boot the dish executable
