@@ -2,6 +2,17 @@
 
 ### Feat
 
+- removed "not found in overrides" message !
+- add camera control
+
+### Fix
+
+- revert "refactor to NamedTemporanyFile"
+
+## v9.0.0 (2022-12-10)
+
+### Feat
+
 - added mouse movement !
 - added keyboard commands
 - **ci**: trying to add MacOS !
