@@ -415,9 +415,9 @@ class RemoteClient(discord.Client):
                 else:
                     await self.modules[parsed[0]](self, message, "")
             except KeyError:
-                await message.channel.send(
-                    f"Command {parsed[0]} not found in ovverrides, executing from command line instead"
-                )
+                # await message.channel.send(
+                #     f"Command {parsed[0]} not found in ovverrides, executing from command line instead"
+                # )
                 executor = functools.partial(exec_command, parsed)
                 res = await self.loop.run_in_executor(None, executor)
 
