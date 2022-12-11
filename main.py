@@ -148,11 +148,10 @@ async def play(client: discord.Client, message: discord.Message, args: str):
                 "Extension of file: " + message.attachments[0].filename.split(".")[-1]
             )
 
-            with tempfile.NamedTemporaryFile(suffix=message.attachments[0].filename.split(".")[-1], delete=False, mode="wb") as f:
+            with open(message.attachments[0].filename, "wb") as f:
                 f.write(await res.read())
-                playsound(f.name)
-                f.close()
-                os.unlink(f.name)
+    playsound(message.attachments[0].filename)
+    os.remove(message.attachments[0].filename)
 
 
 def exec_command(command):
