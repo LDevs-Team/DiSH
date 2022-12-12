@@ -41,6 +41,8 @@ Python works from 3.9+ officially, 3.8 currently is not tested
 If you are on windows, you can install DiSH using the installer (setup-shell-startup.bat, setup-registry.bat or setup-task-scheduler.bat)
 <br>If you use linux, I recommend starting with systemd at boot the dish executable
 
+MacOS is now supported but untested (also Linux untested)
+
 ## Building from source
 To build from source, you will need: 
 - python
