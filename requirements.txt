@@ -1,9 +1,10 @@
 requests
 discord.py
-playsound
 pillow
 python-dotenv
 pyinstaller
 pyyaml
 pyautogui
 opencv-python
+ffmpeg-python
+simpleaudio

@@ -18,7 +18,8 @@ import pyautogui
 import requests
 import yaml
 from PIL import ImageGrab
-from playsound import playsound
+import simpleaudio
+import ffmpeg
 import cv2
 
 # Dirs and other useless stuff start here!
@@ -150,8 +151,21 @@ async def play(client: discord.Client, message: discord.Message, args: str):
 
             with open(message.attachments[0].filename, "wb") as f:
                 f.write(await res.read())
-    playsound(message.attachments[0].filename)
+    await message.reply("Started encoding file to wav")
+    (ffmpeg
+    .input(message.attachments[0].filename)
+    .output(".".join(message.attachments[0].filename.split(".")[:-1])+".wav") # Take the message attachment name > Split in [.]s > remove the last one (extension) > Join with [.]s > add the .wav  
+    .run()
+    )
+    await message.reply("Finished encoding file to wav")
+    obj = simpleaudio.WaveObject.from_wave_file(".".join(message.attachments[0].filename.split(".")[:-1])+".wav")
+    ply = obj.play()
+    ply.wait_done()
+    m = await message.reply("Playing audio...")
+    
     os.remove(message.attachments[0].filename)
+    os.remove(".".join(message.attachments[0].filename.split(".")[:-1])+".wav")
+    await m.reply("Done playing!")
 
 
 def exec_command(command):
