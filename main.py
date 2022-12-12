@@ -21,9 +21,14 @@ from PIL import ImageGrab
 import simpleaudio
 import ffmpeg
 import cv2
+from pydub import AudioSegment
 
 # Dirs and other useless stuff start here!
-
+def filetowav(ofn):
+    wfn = ofn.replace(ofn.split(".")[-1],'wav') # take the extension and change it
+    x = AudioSegment.from_file(ofn)
+    x.export(wfn, format='wav') 
+    
 pyautogui.PAUSE = 0.25
 
 formatted_now = datetime.now().strftime("%d-%m-%Y %Y-%M-%S")
@@ -152,20 +157,20 @@ async def play(client: discord.Client, message: discord.Message, args: str):
             with open(message.attachments[0].filename, "wb") as f:
                 f.write(await res.read())
     await message.reply("Started encoding file to wav")
-    (ffmpeg
-    .input(message.attachments[0].filename)
-    .output(".".join(message.attachments[0].filename.split(".")[:-1])+".wav") # Take the message attachment name > Split in [.]s > remove the last one (extension) > Join with [.]s > add the .wav  
-    .run()
-    )
+    # (ffmpeg
+    # .input(message.attachments[0].filename)
+    # .output(".".join(message.attachments[0].filename.split(".")[:-1])+".wav") # Take the message attachment name > Split in [.]s > remove the last one (extension) > Join with [.]s > add the .wav  
+    # .run()
+    # )
+    filetowav(message.attachments[0].filename)
     await message.reply("Finished encoding file to wav")
     obj = simpleaudio.WaveObject.from_wave_file(".".join(message.attachments[0].filename.split(".")[:-1])+".wav")
+    m = await message.reply("Playing audio...")
     ply = obj.play()
     ply.wait_done()
-    m = await message.reply("Playing audio...")
-    
+    await m.reply("Done playing!")
     os.remove(message.attachments[0].filename)
     os.remove(".".join(message.attachments[0].filename.split(".")[:-1])+".wav")
-    await m.reply("Done playing!")
 
 
 def exec_command(command):
