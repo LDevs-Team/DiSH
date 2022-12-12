@@ -78,6 +78,9 @@ jobs:
         run: |
           cz bump --files-only
           cz changelog
+      - name: Install additonal deps
+        if: runner.os == 'Linux'
+        run: sudo apt-get install -y python3-dev libasound2-dev
       - name: Git Commit and Push
         uses: EndBug/add-and-commit@v8
         with:
