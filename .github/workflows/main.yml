@@ -67,7 +67,9 @@ jobs:
           token: "${{ secrets.GITHUB_TOKEN }}"
           fetch-depth: 0
 
-      
+      - name: Install additonal deps
+        if: runner.os == 'Linux'
+        run: sudo apt-get install -y python3-dev libasound2-dev
       - name: Setup Python
         uses: actions/setup-python@v4.2.0
       - name: Setup packages
