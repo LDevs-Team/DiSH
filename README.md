@@ -1,5 +1,5 @@
 # DiSH
-
+[![Build](https://github.com/LDevs-Team/DiSH/actions/workflows/main.yml/badge.svg)](https://github.com/LDevs-Team/DiSH/actions/workflows/main.yml)
 ## DISCLAIMER
 DISCLAMER: We started this project only for good purposes - this program is NOT INTENDED FOR MALICIOUS USE
 ## License
