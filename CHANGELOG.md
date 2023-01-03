@@ -2,6 +2,13 @@
 
 ### Feat
 
+- removed Mac !
+- added bck services + QoL stuff !
+
+## v9.2.0 (2023-01-03)
+
+### Feat
+
 - added ch mention !
 - badge lul
 - **ci**: add stuff !
