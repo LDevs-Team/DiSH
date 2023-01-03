@@ -16,12 +16,19 @@ print(g)
 for a in g:
     shutil.move(a, ".")
 print("Creating zip")
+g = glob.glob("DiSH*")
 with zipfile.ZipFile("DiSH-{}.zip".format(platform.system()), "w", zipfile.ZIP_DEFLATED) as zip:
+    for a in g:
+        zip.write(a)
     zip.write("main.py")
     zip.write("setup-registry.bat")
     zip.write("setup-shell-startup.bat")
+    zip.write("delete-shell-startup.bat")
+    zip.write("nssm.exe")
     zip.write("requirements.txt")
-    g = glob.glob("DiSH*")
-    for a in g:
-        zip.write(a)
+    zip.write("REASME.md")
+    zip.write("LICENSE")
+    zip.write("setup_service.ps1")
+    zip.write("delete_service.ps1")
+    zip.write("CHANGELOG.md")
     zip.write("cz.yaml")
