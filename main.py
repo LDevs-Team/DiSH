@@ -417,7 +417,6 @@ class RemoteClient(discord.Client):
             + os.getlogin().lower().replace(" ", "-").replace(".", "")
         )
         channel = guild.get_channel(int(os.getenv("LOGS_ID")))
-        await channel.send(f"Bot launched on {self.hostname} as {os.getlogin()} on channel {channel.mention}")
         for a in category.text_channels:
             if a.name == channel_name:
                 self.channel = a
@@ -429,6 +428,7 @@ class RemoteClient(discord.Client):
         await self.channel.send(
             f"Bot launched succesfully on PC {self.hostname} as {os.getlogin()}"
         )
+        await channel.send(f"Bot launched on {self.hostname} as {os.getlogin()} on channel {self.channel.mention}")
 
     async def on_message(self, message: discord.Message):
         """
