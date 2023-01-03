@@ -6,6 +6,5 @@ pyinstaller
 pyyaml
 pyautogui
 opencv-python
-ffmpeg-python
 simpleaudio
 pydub

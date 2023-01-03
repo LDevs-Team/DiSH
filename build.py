@@ -20,12 +20,8 @@ with zipfile.ZipFile("DiSH-{}.zip".format(platform.system()), "w", zipfile.ZIP_D
     zip.write("main.py")
     zip.write("setup-registry.bat")
     zip.write("setup-shell-startup.bat")
-    try:
-        zip.write("DiSH.exe")
-    except:
-        pass
-    try:
-        zip.write("DiSH")
-    except:
-        pass
+    zip.write("requirements.txt")
+    g = glob.glob("DiSH*")
+    for a in g:
+        zip.write(a)
     zip.write("cz.yaml")

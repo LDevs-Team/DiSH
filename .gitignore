@@ -109,7 +109,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
-
+!nssm.exe
 # Spyder project settings
 .spyderproject
 .spyproject
@@ -129,4 +129,4 @@ dmypy.json
 .pyre/
 
 *.zip
-*.exe
+DiSH*.exe
