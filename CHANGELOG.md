@@ -2,6 +2,29 @@
 
 ### Feat
 
+- added ch mention !
+- badge lul
+- **ci**: add stuff !
+
+### Fix
+
+- fixed channel where the message is being sent !
+- added pydub req ! feat: added help !
+- **ci**: fixed ci deploy !
+- github actions IDK
+- IDK what to say
+- **ci**: github workflow syntax is hell
+- **ci**: sudo !
+- **ci**: GitHub f*ck your editor
+- **ci**: trying to fix workflow syntax
+- **ci**: fixed CI on linux !
+- no longer need ffmpeg !
+- **play**: fixed audio playing (ffmpeg used ig)
+
+## v9.1.0 (2022-12-11)
+
+### Feat
+
 - removed "not found in overrides" message !
 - add camera control
 
