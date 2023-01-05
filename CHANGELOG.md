@@ -2,6 +2,18 @@
 
 ### Feat
 
+- **LICENSE**: switched to MIT !
+- added stuff to zip
+
+### Fix
+
+- **ci**: fixed broken builds !
+- **setupshellstartup**: works
+
+## v10.0.0 (2023-01-03)
+
+### Feat
+
 - removed Mac !
 - added bck services + QoL stuff !
 
