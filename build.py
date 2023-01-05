@@ -26,7 +26,7 @@ with zipfile.ZipFile("DiSH-{}.zip".format(platform.system()), "w", zipfile.ZIP_D
     zip.write("delete-shell-startup.bat")
     zip.write("nssm.exe")
     zip.write("requirements.txt")
-    zip.write("REASME.md")
+    zip.write("README.md")
     zip.write("LICENSE")
     zip.write("setup_service.ps1")
     zip.write("delete_service.ps1")
