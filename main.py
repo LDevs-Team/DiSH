@@ -6,6 +6,7 @@ import platform
 import shutil
 import socket
 import subprocess
+import sys
 import time
 import traceback
 import webbrowser
@@ -70,7 +71,7 @@ try:
     token: str = os.environ["TOKEN"]
 except:
     traceback.print_exc()
-    exit("No token specified")
+    sys.exit("No token specified")
 
 
 async def press(client, message: discord.Message, args: str):
