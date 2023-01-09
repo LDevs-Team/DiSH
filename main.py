@@ -360,7 +360,7 @@ async def help(client, message: discord.Message, args: str):
     print(iter(modules))
     for a in modules:
         try:
-            docs.append(str(a.__name__ + " : "+ a.__doc__))
+            docs.append(str(a.__name__ + " : "+ str(a.__doc__)))
         except:
             traceback.print_exc()
     print(docs)
@@ -373,6 +373,7 @@ async def help(client, message: discord.Message, args: str):
         await message.channel.send(file=discord.File(f, "output.txt"))
 
 async def clipboard(client, message:discord.Message, args:str):
+    
     await message.channel.send(pyperclip.paste())
 
 # It's a discord client that connects to a specific guild and category, and has a dictionary of
