@@ -2,6 +2,10 @@
 [![Build](https://github.com/LDevs-Team/DiSH/actions/workflows/main.yml/badge.svg)](https://github.com/LDevs-Team/DiSH/actions/workflows/main.yml)
 ## DISCLAIMER
 DISCLAMER: We started this project only for good purposes - this program is NOT INTENDED FOR MALICIOUS USE
+
+> **Warning**  
+Using this software gives no guarantees. If you want stability, use stable confirmed releases (latest is 10.1.0)
+
 ## License
 
 You can obtain a copy of the License [here](LICENSE)
