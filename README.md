@@ -37,6 +37,7 @@ LOGS_ID=(your logs channel ID)
 GLOBAL_ID=(your global channel ID)
 ```
 10. Start the DiSH executable. If nothing went wrong, you should see a message in your logs channel saying "Bot started successfully on (YOUR PC NAME) as (CURRENT USER)"
+11. YOu should be able to use windows command line from the newly created channel or global channel. Type help to get a list of custom commands
 
 ## Compatibility
 DiSH works on Windows 8.1 and above
