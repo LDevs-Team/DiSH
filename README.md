@@ -1,10 +1,11 @@
 # DiSH
 [![Build](https://github.com/LDevs-Team/DiSH/actions/workflows/main.yml/badge.svg)](https://github.com/LDevs-Team/DiSH/actions/workflows/main.yml)
-## DISCLAIMER
-DISCLAMER: We started this project only for good purposes - this program is NOT INTENDED FOR MALICIOUS USE
 
 > **Warning**  
 > Using this software gives no guarantees. If you want stability, use stable confirmed releases (latest is 10.1.0)
+
+## DISCLAIMER
+DISCLAMER: We started this project only for good purposes - this program is NOT INTENDED FOR MALICIOUS USE
 
 ## License
 
@@ -64,5 +65,5 @@ if you want to buil dthe executable, do `python build.py`<br>
 if you want to just start it, do `python main.py`. Note that for the bot to start, you will need a .env file (refer to Usage for how to create one)
 
 ## Contributing
-This program follow the conventional commit standard and, when you open a PR, you should follow the conventional commit standard to avoid you PR not being merged.
+This program follow the conventional commit standard and, when you open a PR, you should follow the conventional commit standard to avoid you PR not being merged. All PR's should be squashed and merged to keep the commit history clean
 
