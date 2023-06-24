@@ -483,10 +483,10 @@ if __name__ == "__main__":
     connected = False
     while not connected:
         try:
-            r = requests.get("https://example.com")
+            r = requests.get("https://discord.com")
             if r.status_code == 200:
                 connected = True
-
+            time.sleep(2)
         except:
             pass
         time.sleep(1)
