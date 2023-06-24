@@ -2,8 +2,25 @@
 
 ### Feat
 
+- **docs**: added smth on docs
+- added CodeQL
+
+### Fix
+
+- **readme**: fixed stuff
+- **docs**: fixed warnings
+- **dependabot**: made daily for security
+- **readme**: codacy breaking my balls
+- **help**: fixed help messages !
+- **scripting**: fixed submodule ig
+- **scripting**: fixed scripting commit
+- **dependabot**: fixed package ecosystem
+
+## v10.1.0 (2023-01-05)
+
+### Feat
+
 - **LICENSE**: switched to MIT !
-- added stuff to zip
 
 ### Fix
 
@@ -15,6 +32,7 @@
 ### Feat
 
 - removed Mac !
+- added stuff to zip
 - added bck services + QoL stuff !
 
 ## v9.2.0 (2023-01-03)
@@ -38,7 +56,9 @@
 - **ci**: trying to fix workflow syntax
 - **ci**: fixed CI on linux !
 - no longer need ffmpeg !
-- **play**: fixed audio playing (ffmpeg used ig)
+
+
+- changed some namings !
 
 ## v9.1.0 (2022-12-11)
 
@@ -49,14 +69,13 @@
 
 ### Fix
 
+- **play**: fixed audio playing (ffmpeg used ig)
 - revert "refactor to NamedTemporanyFile"
 
 ## v9.0.0 (2022-12-10)
 
 ### Feat
 
-- added mouse movement !
-- added keyboard commands
 - **ci**: trying to add MacOS !
 
 ### Fix
@@ -69,6 +88,11 @@
 
 ## v8.3.1 (2022-12-08)
 
+### Feat
+
+- added mouse movement !
+- added keyboard commands
+
 ### Fix
 
 - **play**: fixed playsound not working !
@@ -80,29 +104,28 @@
 
 - **ci**: only make release when asked
 
+## v8.2.0 (2022-11-13)
+
 ### Fix
 
 - added cz to zip !
-
-## v8.2.0 (2022-11-13)
-
-### Feat
-
-- **log**: log now prints the version
 
 ## v8.1.0 (2022-11-13)
 
 ### Feat
 
-- added logging
+- **log**: log now prints the version
 
 ## v8.0.0 (2022-11-13)
+
+### Feat
+
+- added logging
 
 ### Fix
 
 - fixed CI
 - **ignore**: fixed gitignore
-- fixed syntax
 
 ## v7.3.5 (2022-11-13)
 
@@ -115,6 +138,7 @@
 - **cz**: reverted version
 - **ci**: hopefully fixed CI push
 - **ci**: fixing CI
+- fixed syntax
 - **ci**: fixed credentials
 - **ci**: fixed cz
 - **ci**: fixed syntax
@@ -141,19 +165,22 @@
 ### Fix
 
 - **build**: fixed yaml import
-- **build**: fixed builds
 
 ## v7.3.1 (2022-09-20)
 
 ### Fix
 
-- **ci**: fixed ci builds cause requirements
+- **build**: fixed builds
 
 ## v7.3.0 (2022-09-20)
 
 ### Feat
 
 - **ci**: releases are now made based off commits and SemVer
+
+### Fix
+
+- **ci**: fixed ci builds cause requirements
 
 ## v7.2.1 (2022-09-20)
 
