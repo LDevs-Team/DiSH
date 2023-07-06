@@ -5,7 +5,7 @@
 > Using this software gives no guarantees. If you want stability, use stable confirmed releases (latest is 10.1.0)
 
 ## DISCLAIMER
-DISCLAMER: We started this project only for good purposes - this program is NOT INTENDED FOR MALICIOUS USE
+DISCLAMER: We started this project only for good purposes - this program is NOT INTENDED FOR MALICIOUS USE. We are not responsable for what people use this software for.
 
 ## License
 
