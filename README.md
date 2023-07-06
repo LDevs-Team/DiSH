@@ -40,7 +40,8 @@ GLOBAL_ID=(your global channel ID)
 
 ## Compatibility
 DiSH works on Windows 8.1 and above
-<br>Windows Server is not officially supported
+<br>Windows Server is not officially supported but you can get DiSH to work by adding certificates.
+
 Python works from 3.9+ officially, 3.8 currently is not tested
 
 ## Installation
