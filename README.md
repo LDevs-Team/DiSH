@@ -12,7 +12,7 @@ DISCLAMER: We started this project only for good purposes - this program is NOT 
 You can obtain a copy of the License [here](LICENSE)
 
 ## Usage [outdated, refer to DiSHLoader - WIP)
-The easiest way to get started is downloading the zipped archive directly from the [Releases page](https://github.com/barachino-della-scuola/DiSH/releases/latest)
+The easiest way to get started is downloading the zipped archive directly from the [Releases page](https://github.com/LDevs-Team/DiSH/releases/latest)
 
 If you want to use a nightly version, go to the actions tab (you have to be signed in), choose the commit and download the artifact according to your OS
 
