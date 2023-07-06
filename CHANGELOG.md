@@ -2,6 +2,18 @@
 
 ### Feat
 
+- supporting DiSHLoader !
+
+### Fix
+
+- clarify some stuff !
+- corrected link
+- compatibility on Readme
+
+## v10.2.0 (2023-06-24)
+
+### Feat
+
 - **docs**: added smth on docs
 - added CodeQL
 
