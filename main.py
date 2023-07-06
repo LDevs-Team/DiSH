@@ -34,34 +34,34 @@ pyautogui.PAUSE = 0.2
 
 formatted_now = datetime.now().strftime("%d-%m-%Y %Y-%M-%S")
 
-dish_dir = (
-    os.path.normpath(os.environ["appdata"] + "/dish/")
-    if os.path.exists(os.environ["appdata"] + "/dish/")
-    and platform.system().lower() == "windows"
-    else "."
-)
+# dish_dir = (
+#     os.path.normpath(os.environ["appdata"] + "/dish/")
+#     if os.path.exists(os.environ["appdata"] + "/dish/")
+#     and platform.system().lower() == "windows"
+#     else "."
+# )
 
-dotenv_path = (
-    os.path.normpath(os.environ["appdata"] + "/dish/.env")
-    if os.path.exists(os.environ["appdata"] + "/dish/.env")
-    else ".env"
-)
-try:
-    dotenv.load_dotenv(dotenv_path)
-except:
-    traceback.print_exc()
+# dotenv_path = (
+#     os.path.normpath(os.environ["appdata"] + "/dish/.env")
+#     if os.path.exists(os.environ["appdata"] + "/dish/.env")
+#     else ".env"
+# )
+# try:
+#     dotenv.load_dotenv(dotenv_path)
+# except:
+#     traceback.print_exc()
 
-# Useless stuff starts here
-
-
-with open("cz.yaml", "r") as stream:
-    try:
-        version = yaml.safe_load(stream)["commitizen"]["version"]
-    except yaml.YAMLError as exc:
-        print(exc)
+# # Useless stuff starts here
 
 
-print(f"Starting DiSH v{version}")
+# with open("cz.yaml", "r") as stream:
+#     try:
+#         version = yaml.safe_load(stream)["commitizen"]["version"]
+#     except yaml.YAMLError as exc:
+#         print(exc)
+
+
+# print(f"Starting DiSH v{version}")
 
 # DiSH variables start here!
 
