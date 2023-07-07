@@ -1,5 +1,13 @@
 ## Unreleased
 
+### Fix
+
+- removed outdated components from zip !
+- added full DiSHLoader support |
+- removed Service support |
+
+## v11.1.0 (2023-07-07)
+
 ### Feat
 
 - unified setup with DiSHLoader directories !

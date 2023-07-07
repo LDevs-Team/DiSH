@@ -2,4 +2,4 @@
 commitizen:
   name: cz_conventional_commits
   tag_format: v$version
-  version: 11.1.0
+  version: 11.1.1
