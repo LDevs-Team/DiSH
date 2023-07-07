@@ -66,6 +66,7 @@ pip install -r requirements.txt
 if you want to buil dthe executable, do `python build.py`<br>
 if you want to just start it, do `python main.py`. Note that for the bot to start, you will need a .env file (refer to Usage for how to create one)
 
+
 ## Contributing
 This program follow the conventional commit standard and, when you open a PR, you should follow the conventional commit standard to avoid you PR not being merged. All PR's should be squashed and merged to keep the commit history clean
 
