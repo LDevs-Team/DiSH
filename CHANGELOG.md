@@ -2,6 +2,15 @@
 
 ### Feat
 
+- unified setup with DiSHLoader directories !
+- updated deleter
+- updated shell:startup setup to be unified
+- unified with DiSHLoader
+
+## v11.0.0 (2023-07-06)
+
+### Feat
+
 - supporting DiSHLoader !
 
 ### Fix
