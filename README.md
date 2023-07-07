@@ -2,7 +2,7 @@
 [![Build](https://github.com/LDevs-Team/DiSH/actions/workflows/main.yml/badge.svg)](https://github.com/LDevs-Team/DiSH/actions/workflows/main.yml)
 
 > **Warning**  
-> Using this software gives no guarantees. If you want stability, use stable confirmed releases (latest is 10.1.0)
+> Using this software gives no guarantees. If you want stability, use stable confirmed releases (latest is 11.0)
 > Turns out I can't bother to update the install instructiosn for now, refer to DiSHLoader code to install.
 
 ## DISCLAIMER
