@@ -1,5 +1,6 @@
 taskkill /f /im DiSH.exe
 cd %appdata%
+cd ldevs
 cd dish
 del dish.exe
 del .env
