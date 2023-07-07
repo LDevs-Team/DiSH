@@ -20,48 +20,17 @@ import pyautogui
 import requests
 import yaml
 from PIL import ImageGrab
-import simpleaudio
 import cv2
+import winreg
 from pydub import AudioSegment
 
 # Dirs and other useless stuff start here!
-def filetowav(ofn):
-    wfn = ofn.replace(ofn.split(".")[-1],'wav') # take the extension and change it
-    x = AudioSegment.from_file(ofn)
-    x.export(wfn, format='wav') 
+
     
 pyautogui.PAUSE = 0.2
 
 formatted_now = datetime.now().strftime("%d-%m-%Y %Y-%M-%S")
 
-# dish_dir = (
-#     os.path.normpath(os.environ["appdata"] + "/dish/")
-#     if os.path.exists(os.environ["appdata"] + "/dish/")
-#     and platform.system().lower() == "windows"
-#     else "."
-# )
-
-# dotenv_path = (
-#     os.path.normpath(os.environ["appdata"] + "/dish/.env")
-#     if os.path.exists(os.environ["appdata"] + "/dish/.env")
-#     else ".env"
-# )
-# try:
-#     dotenv.load_dotenv(dotenv_path)
-# except:
-#     traceback.print_exc()
-
-# # Useless stuff starts here
-
-
-# with open("cz.yaml", "r") as stream:
-#     try:
-#         version = yaml.safe_load(stream)["commitizen"]["version"]
-#     except yaml.YAMLError as exc:
-#         print(exc)
-
-
-# print(f"Starting DiSH v{version}")
 
 # DiSH variables start here!
 
@@ -134,42 +103,6 @@ async def click(client, message: discord.Message, args: str):
     pos = args.split(" ")
     pyautogui.click(int(pos[0]), int(pos[1]))
     await message.reply("Clicked at " + str(pos))
-
-
-async def play(client, message: discord.Message, args: str):
-    """
-    It plays the sound file that was attached to the message
-
-    :param client: The client object
-    :type client: RemoteClient
-    :param message: discord.Message
-    :type message: discord.Message
-    :param args: str - The arguments passed to the command
-    :type args: str
-    """
-    async with aiohttp.ClientSession() as session:
-        async with session.get(message.attachments[0].url) as res:
-            print(
-                "Extension of file: " + message.attachments[0].filename.split(".")[-1]
-            )
-
-            with open(message.attachments[0].filename, "wb") as f:
-                f.write(await res.read())
-    await message.reply("Started encoding file to wav")
-    # (ffmpeg
-    # .input(message.attachments[0].filename)
-    # .output(".".join(message.attachments[0].filename.split(".")[:-1])+".wav") # Take the message attachment name > Split in [.]s > remove the last one (extension) > Join with [.]s > add the .wav  
-    # .run()
-    # )
-    filetowav(message.attachments[0].filename)
-    await message.reply("Finished encoding file to wav")
-    obj = simpleaudio.WaveObject.from_wave_file(".".join(message.attachments[0].filename.split(".")[:-1])+".wav")
-    m = await message.reply("Playing audio...")
-    ply = obj.play()
-    ply.wait_done()
-    await m.reply("Done playing!")
-    os.remove(message.attachments[0].filename)
-    os.remove(".".join(message.attachments[0].filename.split(".")[:-1])+".wav")
 
 
 def exec_command(command):
@@ -391,7 +324,6 @@ class RemoteClient(discord.Client):
             "cd": cd,
             "pwd": pwd,
             "browser": browser,
-            "play": play,
             "screenshot": screenshot,
             "upload": upload,
             "download": download,
