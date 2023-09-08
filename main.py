@@ -5,13 +5,16 @@ import os
 import platform
 import shutil
 import socket
+from discord.ext import commands
 import subprocess
 import sys
+import jishaku as _jishaku
 import time
 import traceback
 import webbrowser
 from datetime import datetime
 from io import BytesIO
+import ast
 import tempfile
 import aiohttp
 import discord
@@ -26,7 +29,8 @@ from pydub import AudioSegment
 
 # Dirs and other useless stuff start here!
 
-    
+owner_ids = [int(x) for x in os.getenv("OWNER_IDS").split(",")]
+
 pyautogui.PAUSE = 0.2
 
 formatted_now = datetime.now().strftime("%d-%m-%Y %Y-%M-%S")
@@ -42,6 +46,24 @@ except:
     traceback.print_exc()
     sys.exit("No token specified")
 
+# Helper functions go here
+
+def insert_returns(body):
+    # insert return stmt if the last expression is a expression statement
+    if isinstance(body[-1], ast.Expr):
+        body[-1] = ast.Return(body[-1].value)
+        ast.fix_missing_locations(body[-1])
+
+    # for if statements, we insert returns into the body and the orelse
+    if isinstance(body[-1], ast.If):
+        insert_returns(body[-1].body)
+        insert_returns(body[-1].orelse)
+
+    # for with blocks, again we insert returns into the body
+    if isinstance(body[-1], ast.With):
+        insert_returns(body[-1].body)
+
+# Functions go here
 
 async def press(client, message: discord.Message, args: str):
     keys = args.split(" ")
@@ -49,11 +71,13 @@ async def press(client, message: discord.Message, args: str):
         pyautogui.press(a)
     await message.reply(f"Pressed {', '.join(keys)}")
 
+async def restartDiSH(client, message, args):
+    await message.channel.send("Reloading using DiSHLoader. If DiSH isn't running using DiSHLoader, it won't restart (RIP)")
+    sys.exit(2)
 
 async def typewrite(client, message: discord.Message, args: str):
     pyautogui.typewrite(args)
     await message.reply(f"Typed {args}")
-
 
 async def hotkey(client, message: discord.Message, args: str):
     keys = args.split(" ")
@@ -85,16 +109,12 @@ async def loc(client, message: discord.Message, args: str):
     res = requests.get(fileUrl, stream=True)
     with open(message.attachments[0].filename, "wb") as f:
         f.write(res.content)
-
-    try:
         pos = pyautogui.locateOnScreen(message.attachments[0].filename, confidence=0.8)
         if pos == None:
             os.remove(message.attachments[0].filename)
             return await message.reply("Image not found :/")
         pyautogui.click(pos)
         await message.reply("Clicked at " + str(pos))
-    except Exception as e:
-        print(e)
         await message.reply("No image found :/")
     os.remove(message.attachments[0].filename)
 
@@ -173,7 +193,6 @@ async def cd(client, message: discord.Message, args: str):
     :param args: str - The arguments passed to the command
     :type args: str
     """
-    print(args)
     os.chdir(args)
     await message.channel.send("Changed directory to " + args)
 
@@ -289,7 +308,6 @@ async def browser(client, message: discord.Message, args: str):
 
 async def help(client, message: discord.Message, args: str):
     modules = client.modules.values()
-    print(modules)
     docs = []
     print(iter(modules))
     for a in modules:
@@ -312,7 +330,7 @@ async def clipboard(client, message:discord.Message, args:str):
 
 # It's a discord client that connects to a specific guild and category, and has a dictionary of
 # modules that can be called.
-class RemoteClient(discord.Client):
+class RemoteClient(commands.Bot):
     def __init__(self, guild_id: int, category_id: int, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.guild_id: int = guild_id
@@ -332,6 +350,7 @@ class RemoteClient(discord.Client):
             "typewrite": typewrite,
             "hotkey": hotkey,
             "special": specialKeys,
+            "restartDish": restartDiSH,
             "loc": loc,
             "click": click,
             "cam":cam,
@@ -340,6 +359,7 @@ class RemoteClient(discord.Client):
         }
 
     async def on_ready(self):
+        await self.load_extension('jishaku')
         """
         It creates a channel with the name of the hostname and username of the user that launched the
         bot.
@@ -376,6 +396,10 @@ class RemoteClient(discord.Client):
         :return: The return value is a tuple of two strings, the first being the stdout and the second being
         the stderr.
         """
+        ctx = await self.get_context(message)
+        if (ctx.valid):
+            await self.process_commands(message)
+            return
 
         if message.channel == self.channel or message.channel.id == int(
             os.getenv("GLOBAL_ID")
@@ -384,9 +408,6 @@ class RemoteClient(discord.Client):
                 return
             parsed = message.content.split(" ")
             try:
-                
-
-                print(self.modules[parsed[0]])
                 if len(parsed) > 1:
                     await self.modules[parsed[0]](self, message, " ".join(parsed[1:]))
                 else:
@@ -409,6 +430,8 @@ class RemoteClient(discord.Client):
                 traceback.print_exc()
                 exc = traceback.format_exc()
                 await message.channel.send(f"Python Errors: ```py\n{exc}\n```")
+                if "SystemExit: 2" in exc:
+                    sys.exit(2)
 
 
 if __name__ == "__main__":
@@ -423,5 +446,5 @@ if __name__ == "__main__":
             pass
         time.sleep(1)
 
-    client = RemoteClient(guild_id, category_id, intents=discord.Intents.all())
+    client = RemoteClient(guild_id, category_id, command_prefix=".", intents=discord.Intents.all(), owner_ids=owner_ids)
     client.run(token)
