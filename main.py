@@ -35,9 +35,6 @@ pyautogui.PAUSE = 0.2
 
 formatted_now = datetime.now().strftime("%d-%m-%Y %Y-%M-%S")
 
-
-
-
 # DiSH variables start here!
 
 guild_id: int = int(os.getenv("GUILD_ID"))
