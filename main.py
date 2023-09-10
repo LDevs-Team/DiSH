@@ -8,7 +8,7 @@ import socket
 from discord.ext import commands
 import subprocess
 import sys
-import jishaku as _jishaku
+import jishaku
 import time
 import traceback
 import webbrowser
@@ -24,8 +24,11 @@ import requests
 import yaml
 from PIL import ImageGrab
 import cv2
-import winreg
+import simpleaudio
 from pydub import AudioSegment
+from pak import core as pak
+from pak import classes as errorClasses
+
 
 # Dirs and other useless stuff start here!
 
@@ -34,6 +37,8 @@ owner_ids = [int(x) for x in os.getenv("OWNER_IDS").split(",")]
 pyautogui.PAUSE = 0.2
 
 formatted_now = datetime.now().strftime("%d-%m-%Y %Y-%M-%S")
+
+
 
 
 # DiSH variables start here!
@@ -47,7 +52,11 @@ except:
     sys.exit("No token specified")
 
 # Helper functions go here
-
+def filetowav(ofn):
+    wfn = ofn.replace(ofn.split(".")[-1],'wav') # take the extension and change it
+    x = AudioSegment.from_file(ofn)
+    x.export(wfn, format='wav') 
+    
 def insert_returns(body):
     # insert return stmt if the last expression is a expression statement
     if isinstance(body[-1], ast.Expr):
@@ -74,6 +83,62 @@ async def press(client, message: discord.Message, args: str):
 async def restartDiSH(client, message, args):
     await message.channel.send("Reloading using DiSHLoader. If DiSH isn't running using DiSHLoader, it won't restart (RIP)")
     sys.exit(2)
+
+async def pakCommands(client, message: discord.Message, args: str):
+    command = args.split(" ")[0]
+    pak_args = " ".join(args.split(" ")[1:])
+    try:
+        match command:
+            case "install":
+                pak.install(pak_args)
+            case "uninstall":
+                pak.uninstall(pak_args)
+            case "update":
+                pak.upgrade(pak_args)
+            case "_":
+                message.reply("Pak command not found")
+    except ValueError:
+        await message.reply("ValueError thrown. The package could probably not be found. Logs:  ```\n" + traceback.format_exc() + "```")
+        return
+    except errorClasses.BadPackage:
+        await message.reply("BadPackage thrown. The package is malformed. Logs:  ```\n" + traceback.format_exc() + "```")
+        return
+    except errorClasses.MissingFileError:
+        await message.reply("MissingFileError thrown. The package is missing one or more files. Logs:  ```\n" + traceback.format_exc() + "```")
+        return
+    except errorClasses.PackageUpdateError:
+        await message.reply("PackageUpdateError thrown. The package failed its update task. Logs:  ```\n" + traceback.format_exc() + "```")
+        return
+    await message.reply(f"Success!")
+
+async def play(client, message: discord.Message, args: str):
+    """
+    It plays the sound file that was attached to the message
+    :param client: The client object
+    :type client: RemoteClient
+    :param message: discord.Message
+    :type message: discord.Message
+    :param args: str - The arguments passed to the command
+    :type args: str
+    """
+    async with aiohttp.ClientSession() as session:
+        async with session.get(message.attachments[0].url) as res:
+            print(
+                "Extension of file: " + message.attachments[0].filename.split(".")[-1]
+            )
+
+            with open(message.attachments[0].filename, "wb") as f:
+                f.write(await res.read())
+    await message.reply("Started encoding file to wav")
+    filetowav(message.attachments[0].filename)
+    await message.reply("Finished encoding file to wav")
+    obj = simpleaudio.WaveObject.from_wave_file(".".join(message.attachments[0].filename.split(".")[:-1])+".wav")
+    m = await message.reply("Playing audio...")
+    ply = obj.play()
+    ply.wait_done()
+    await m.reply("Done playing!")
+    os.remove(message.attachments[0].filename)
+    os.remove(".".join(message.attachments[0].filename.split(".")[:-1])+".wav")
 
 async def typewrite(client, message: discord.Message, args: str):
     pyautogui.typewrite(args)
@@ -356,6 +421,8 @@ class RemoteClient(commands.Bot):
             "cam":cam,
             "help":help,
             "clipboard":clipboard,
+            "play": play,
+            "pak": pakCommands
         }
 
     async def on_ready(self):
