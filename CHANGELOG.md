@@ -1,5 +1,12 @@
 ## Unreleased
 
+### Feat
+
+- added pack and added back playsound
+- transtioned to bot and added jishaku !
+
+## v11.1.1 (2023-07-07)
+
 ### Fix
 
 - removed outdated components from zip !
