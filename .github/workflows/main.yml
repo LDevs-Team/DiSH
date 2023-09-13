@@ -105,6 +105,8 @@ jobs:
         run: |
           echo "VER=$(python version_exporter.py)" >> $GITHUB_ENV
           python version_exporter.py
+      - name: Update setup version
+        run: sed s/nightly/$VER/g setup.bat
       - name: Create Relese
         uses: ncipollo/release-action@v1.10.0
         with:
