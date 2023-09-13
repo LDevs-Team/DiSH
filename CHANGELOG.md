@@ -2,6 +2,17 @@
 
 ### Feat
 
+- auto bump in setup
+
+### Fix
+
+- updated README !
+- updated setup.bat
+
+## v11.2.0 (2023-09-10)
+
+### Feat
+
 - added pack and added back playsound
 - transtioned to bot and added jishaku !
 
