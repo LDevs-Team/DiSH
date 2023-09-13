@@ -1,2 +1,2 @@
-mkdir %appdata%\ldevs\dishloader\versions\11.1.1
-copy dish.exe %appdata%\ldevs\dishloader\versions\11.1.1
+mkdir %appdata%\ldevs\dishloader\versions\nightly
+copy * %appdata%\ldevs\dishloader\versions\nightly
