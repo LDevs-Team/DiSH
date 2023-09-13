@@ -1,19 +1,16 @@
 # DiSH
 [![Build](https://github.com/LDevs-Team/DiSH/actions/workflows/main.yml/badge.svg)](https://github.com/LDevs-Team/DiSH/actions/workflows/main.yml)
 
-> **Warning**  
-> Using this software gives no guarantees. If you want stability, use stable confirmed releases (latest is 11.0)
-> Turns out I can't bother to update the install instructiosn for now, refer to DiSHLoader code to install.
-
 ## DISCLAIMER
 DISCLAMER: We started this project only for good purposes - this program is NOT INTENDED FOR MALICIOUS USE. We are not responsable for what people use this software for.
 
 ## License
-
 You can obtain a copy of the License [here](LICENSE)
 
 ## Usage 
 ### Refer to [DiSHLoader](https://github.com/LDevs-Team/DiSHLoader)
+
+Tl;DR: Using setub.bat will help :)
 
 ## Building from source
 To build from source, you will need: 
