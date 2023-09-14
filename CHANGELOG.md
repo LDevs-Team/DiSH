@@ -2,6 +2,12 @@
 
 ### Fix
 
+- fixed CI variables !
+
+## v11.4.1 (2023-09-14)
+
+### Fix
+
 - fixed CI !
 
 ## v11.4.0 (2023-09-14)
