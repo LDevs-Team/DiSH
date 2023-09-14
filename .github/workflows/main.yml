@@ -53,8 +53,7 @@ jobs:
         run: |
           python -m  pip install -U Commitizen
           cz bump --files-only
-          echo "VER=$(python version_exporter.py)" >> $GITHUB_ENV
-          python version_exporter.py
+          export VER=$(python version_exporter.py)
           echo "Bumped to version $VER"
           sed s/nightly/$VER/ setup.bat > setup.tmp
           rm setup.bat
