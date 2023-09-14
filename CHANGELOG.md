@@ -2,6 +2,19 @@
 
 ### Feat
 
+- added codeql to readme !
+
+### Fix
+
+- fixed CI fetch-depth
+- fixed CI syntax !
+- fixing CI (commit 1) !
+- tried to fix stuff !
+
+## v11.3.0 (2023-09-13)
+
+### Feat
+
 - auto bump in setup
 
 ### Fix
