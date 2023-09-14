@@ -56,7 +56,9 @@ jobs:
           echo "VER=$(python version_exporter.py)" >> $GITHUB_ENV
           python version_exporter.py
           echo "Bumped to version $VER"
-          sed s/nightly/$VER/g setup.bat
+          sed s/nightly/$VER/ setup.bat > setup.tmp
+          rm setup.bat
+          mv setup.tmp setup.bat
       # Runs a set of commands using the runners shell
       - name: Package with PyInstaller
         run: |
@@ -117,7 +119,7 @@ jobs:
           echo "VER=$(python version_exporter.py)" >> $GITHUB_ENV
           python version_exporter.py
       - name: Update setup version
-        run: sed s/nightly/$VER/g setup.bat
+        run: sed s/nightly/$VER/ setup.bat
       - name: Create Relese
         uses: ncipollo/release-action@v1.10.0
         with:
