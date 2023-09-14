@@ -1,5 +1,11 @@
 ## Unreleased
 
+### Fix
+
+- fixed CI !
+
+## v11.4.0 (2023-09-14)
+
 ### Feat
 
 - added codeql to readme !
