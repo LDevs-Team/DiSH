@@ -51,7 +51,7 @@ jobs:
           cz bump --files-only
           echo "VER=$(python version_exporter.py)" >> $GITHUB_ENV
           python version_exporter.py
-          echo "Bumped to version ${{ VER }}"
+          echo "Bumped to version $VER"
           sed s/nightly/$VER/g setup.bat
       # Runs a set of commands using the runners shell
       - name: Package with PyInstaller
