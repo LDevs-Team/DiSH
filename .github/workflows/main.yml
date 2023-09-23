@@ -28,6 +28,10 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
+        with:
+          token: "${{ secrets.GITHUB_TOKEN }}"
+          fetch-depth: 0
+          
       - name: Setup Python
         uses: actions/setup-python@v4.2.0
         with:
@@ -44,7 +48,20 @@ jobs:
         run: sudo apt-get install -y python3-dev libasound2-dev
       - name: Setup packages
         run: python -m pip install -r requirements.txt
-
+      - name: Bump
+        if: endsWith(github.event.head_commit.message, ' !') 
+        run: |
+          python -m  pip install -U Commitizen
+          cz bump --files-only
+          export VER=$(python version_exporter.py)
+          echo "Bumped to version $VER"
+          sed s/nightly/$VER/ setup.bat > setup.tmp
+          rm setup.bat
+          mv setup.tmp setup.bat
+          echo "Replacing on delete.bat file"
+          sed s/nightly/$VER/ delete.bat > delete.tmp
+          rm delete.bat
+          mv delete.tmp delete.bat
       # Runs a set of commands using the runners shell
       - name: Package with PyInstaller
         run: |
@@ -86,7 +103,6 @@ jobs:
       - name: Git Commit and Push
         uses: EndBug/add-and-commit@v8
         with:
-          
           message: "bump: update version"
           author_name: github-actions[bot]
           author_email: github-actions[bot]@users.noreply.github.com
@@ -105,6 +121,8 @@ jobs:
         run: |
           echo "VER=$(python version_exporter.py)" >> $GITHUB_ENV
           python version_exporter.py
+      - name: Update setup version
+        run: sed s/nightly/$VER/ setup.bat
       - name: Create Relese
         uses: ncipollo/release-action@v1.10.0
         with:

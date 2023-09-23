@@ -2,6 +2,73 @@
 
 ### Fix
 
+- added jishaku to requirements !
+
+## v12.1.0 (2023-09-23)
+
+### Feat
+
+- added pak support !
+
+## v12.0.1 (2023-09-23)
+
+### Fix
+
+- forced reg add in setup !
+
+## v12.0.0 (2023-09-23)
+
+### Feat
+
+- added DiSHLoader registry setup !
+
+## v11.4.2 (2023-09-14)
+
+### Fix
+
+- fixed CI variables !
+
+## v11.4.1 (2023-09-14)
+
+### Fix
+
+- fixed CI !
+
+## v11.4.0 (2023-09-14)
+
+### Feat
+
+- added codeql to readme !
+
+### Fix
+
+- fixed CI fetch-depth
+- fixed CI syntax !
+- fixing CI (commit 1) !
+- tried to fix stuff !
+
+## v11.3.0 (2023-09-13)
+
+### Feat
+
+- auto bump in setup
+
+### Fix
+
+- updated README !
+- updated setup.bat
+
+## v11.2.0 (2023-09-10)
+
+### Feat
+
+- added pack and added back playsound
+- transtioned to bot and added jishaku !
+
+## v11.1.1 (2023-07-07)
+
+### Fix
+
 - removed outdated components from zip !
 - added full DiSHLoader support |
 - removed Service support |
