@@ -23,9 +23,6 @@ from PIL import ImageGrab
 import cv2
 import simpleaudio
 from pydub import AudioSegment
-from pak import core as pak
-from pak import classes as errorClasses
-
 
 # Dirs and other useless stuff start here!
 
@@ -77,33 +74,6 @@ async def press(client, message: discord.Message, args: str):
 async def restartDiSH(client, message, args):
     await message.channel.send("Reloading using DiSHLoader. If DiSH isn't running using DiSHLoader, it won't restart (RIP)")
     sys.exit(2)
-
-async def pakCommands(client, message: discord.Message, args: str):
-    command = args.split(" ")[0]
-    pak_args = " ".join(args.split(" ")[1:])
-    try:
-        match command:
-            case "install":
-                pak.install(pak_args)
-            case "uninstall":
-                pak.uninstall(pak_args)
-            case "update":
-                pak.upgrade(pak_args)
-            case "_":
-                message.reply("Pak command not found")
-    except ValueError:
-        await message.reply("ValueError thrown. The package could probably not be found. Logs:  ```\n" + traceback.format_exc() + "```")
-        return
-    except errorClasses.BadPackage:
-        await message.reply("BadPackage thrown. The package is malformed. Logs:  ```\n" + traceback.format_exc() + "```")
-        return
-    except errorClasses.MissingFileError:
-        await message.reply("MissingFileError thrown. The package is missing one or more files. Logs:  ```\n" + traceback.format_exc() + "```")
-        return
-    except errorClasses.PackageUpdateError:
-        await message.reply("PackageUpdateError thrown. The package failed its update task. Logs:  ```\n" + traceback.format_exc() + "```")
-        return
-    await message.reply(f"Success!")
 
 async def play(client, message: discord.Message, args: str):
     """
@@ -415,8 +385,7 @@ class RemoteClient(commands.Bot):
             "cam":cam,
             "help":help,
             "clipboard":clipboard,
-            "play": play,
-            "pak": pakCommands
+            "play": play
         }
 
     async def on_ready(self):

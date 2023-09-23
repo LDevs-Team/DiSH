@@ -3,6 +3,3 @@
 	path = DiSHScript
 	url = https://github.com/LDevs-Team/DiSHScript/
 	branch = main
-[submodule "pak"]
-	path = pak
-	url = https://github.com/LDevs-Team/pak
