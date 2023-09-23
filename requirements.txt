@@ -8,3 +8,4 @@ pyautogui
 opencv-python
 pydub
 simpleaudio
+jishaku
