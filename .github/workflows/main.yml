@@ -58,6 +58,10 @@ jobs:
           sed s/nightly/$VER/ setup.bat > setup.tmp
           rm setup.bat
           mv setup.tmp setup.bat
+          echo "Replacing on delete.bat file"
+          sed s/nightly/$VER/ delete.bat > delete.tmp
+          rm delete.bat
+          mv delete.tmp delete.bat
       # Runs a set of commands using the runners shell
       - name: Package with PyInstaller
         run: |
