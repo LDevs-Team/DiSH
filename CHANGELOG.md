@@ -1,5 +1,11 @@
 ## Unreleased
 
+### Feat
+
+- added pak situation !
+
+## v12.1.1 (2023-09-23)
+
 ### Fix
 
 - added jishaku to requirements !
