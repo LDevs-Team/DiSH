@@ -1,5 +1,11 @@
 ## Unreleased
 
+### Fix
+
+- forced reg add in setup !
+
+## v12.0.0 (2023-09-23)
+
 ### Feat
 
 - added DiSHLoader registry setup !
