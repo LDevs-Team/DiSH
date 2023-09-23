@@ -10,7 +10,7 @@ You can obtain a copy of the License [here](LICENSE)
 ## Usage 
 ### Refer to [DiSHLoader](https://github.com/LDevs-Team/DiSHLoader)
 
-Tl;DR: Using setub.bat will help :) 
+TL;DR: setup.bat can do a lot of the heavy lifting for you 
 
 ## Building from source
 To build from source, you will need: 
