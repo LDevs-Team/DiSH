@@ -31,3 +31,5 @@ if you want to just start it, do `python main.py`. Note that for the bot to star
 ## Contributing
 This program follow the conventional commit standard and, when you open a PR, you should follow the conventional commit standard to avoid you PR not being merged. All PR's should be squashed and merged to keep the commit history clean
 
+## Pak usage
+Pak has been removed. Do not talk about it. It does not work lol
