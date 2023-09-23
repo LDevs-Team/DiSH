@@ -1,5 +1,11 @@
 ## Unreleased
 
+### Feat
+
+- added DiSHLoader registry setup !
+
+## v11.4.2 (2023-09-14)
+
 ### Fix
 
 - fixed CI variables !
