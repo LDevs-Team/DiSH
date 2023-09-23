@@ -1,5 +1,11 @@
 ## Unreleased
 
+### Feat
+
+- added pak support !
+
+## v12.0.1 (2023-09-23)
+
 ### Fix
 
 - forced reg add in setup !
