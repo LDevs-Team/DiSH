@@ -1,5 +1,11 @@
 ## Unreleased
 
+### Fix
+
+- added jishaku to requirements !
+
+## v12.1.0 (2023-09-23)
+
 ### Feat
 
 - added pak support !
