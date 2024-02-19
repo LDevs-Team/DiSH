@@ -1,6 +1,9 @@
 # DiSH
 [![Build](https://github.com/LDevs-Team/DiSH/actions/workflows/main.yml/badge.svg)](https://github.com/LDevs-Team/DiSH/actions/workflows/main.yml) [![CodeQL](https://github.com/LDevs-Team/DiSH/actions/workflows/codeql.yml/badge.svg)](https://github.com/LDevs-Team/DiSH/actions/workflows/codeql.yml)
 
+# Important announcement
+DiSH (python) and DiSHLoader are reaching End Of Life (EOL). They are currently being replaced by [DiSH.cs](https://github.com/LDevs-Team/dish.cs), and will get discontinued and archived once the transition is done.
+
 ## DISCLAIMER
 DISCLAMER: We started this project only for good purposes - this program is NOT INTENDED FOR MALICIOUS USE. We are not responsable for what people use this software for.
 
