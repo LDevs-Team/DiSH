@@ -1,4 +1,44 @@
-## Unreleased
+## v14.0.5 (2024-06-22)
+
+### Fix
+
+- **ci**: fixed ci
+
+## v14.0.4 (2024-06-22)
+
+### Fix
+
+- **ci**: fix publish
+
+## v14.0.3 (2024-06-22)
+
+### Fix
+
+- **ci**: fix deploy
+
+## v14.0.2 (2024-06-22)
+
+### Fix
+
+- **ci**: fix publish script
+
+## v14.0.1 (2024-06-22)
+
+### Fix
+
+- fix build script
+
+## v14.0.0 (2024-06-22)
+
+### Feat
+
+- Refactor DiSH (#8)
+
+### Fix
+
+- **fix-build**: Fix build script "build.py"
+
+## v12.2.0 (2023-09-23)
 
 ### Feat
 
