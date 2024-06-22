@@ -52,11 +52,9 @@ jobs:
         uses: actions/upload-artifact@v3.1.0
         with:
           name: "DiSH-${{ runner.os }}"
-          path: "DiSH-*.zip"
+          path: "src/DiSH-*.zip"
   deploy:
     runs-on: ubuntu-latest
-    if: |
-      endsWith(github.event.head_commit.message, ' !') 
     needs: ["build"]
     steps:
     
