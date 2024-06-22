@@ -5,9 +5,8 @@ name: Build
 on:
   # Triggers the workflow on push or pull request events but only for the "master" branch
   push:
-    tags: [ "v.*" ]
-  pull_request:
-    branches: [ "master" ]
+    tags: [ "v*.*.*" ]
+
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -83,13 +82,7 @@ jobs:
       - name: Install additonal deps
         if: runner.os == 'Linux'
         run: sudo apt-get install -y python3-dev libasound2-dev
-      - name: Git Commit and Push
-        uses: EndBug/add-and-commit@v8
-        with:
-          
-          message: "bump: update version"
-          author_name: github-actions[bot]
-          author_email: github-actions[bot]@users.noreply.github.com
+     
       - name: Download build artifact (Linux)
         uses: actions/download-artifact@v4.1.7
         with:
@@ -98,18 +91,13 @@ jobs:
         uses: actions/download-artifact@v4.1.7
         with:
           name: DiSH-Windows
-      - name: Print Version
-        run: echo "Bumped to version ${{ steps.cz.outputs.version }}"
+            
       
-      - name: Get short hash
-        run: |
-          echo "VER=$(python version_exporter.py)" >> $GITHUB_ENV
-          python version_exporter.py
       - name: Create Relese
         uses: ncipollo/release-action@v1.10.0
         with:
           artifacts: "DiSH-*"
-          tag: "v${{ env.VER }}"
+          tag: "v${{ github.ref_name }}"
           name: "DiSH-${{ env.VER }}"
           bodyFile: "CHANGELOG.md"
      
