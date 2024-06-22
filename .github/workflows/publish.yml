@@ -73,10 +73,6 @@ jobs:
         run: |
           python -m pip install -r requirements.txt
           python -m  pip install -U Commitizen  
-      - name: Bump and changelog
-        run: |
-          cz bump --files-only
-          cz changelog
       - name: Install additonal deps
         if: runner.os == 'Linux'
         run: sudo apt-get install -y python3-dev libasound2-dev
