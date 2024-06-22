@@ -1,0 +1,21 @@
+{
+    "name": "DiSH",
+    "description": "DiscordSHell",
+    "installation": {
+        "adapter": "pak/adapter-batch",
+        "file": "setup.bat",
+        "needsReboot": false
+    },
+    "update": {
+        "supported":true,
+        "adapter": "pak/adapter-batch",
+        "file": "setup.bat",
+        "needsReboot": false
+    },
+    "uninstallation": {
+        "supported": true,
+        "adapter": "pak/adapter-batch",
+        "file": "delete.bat",
+        "needsReboot": false
+    }
+}

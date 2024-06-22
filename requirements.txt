@@ -6,5 +6,6 @@ pyinstaller
 pyyaml
 pyautogui
 opencv-python
-simpleaudio
 pydub
+simpleaudio
+jishaku
