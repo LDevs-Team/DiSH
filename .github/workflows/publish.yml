@@ -5,9 +5,8 @@ name: Build
 on:
   # Triggers the workflow on push or pull request events but only for the "master" branch
   push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+    tags: [ "v*.*.*" ]
+
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -28,10 +27,6 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-        with:
-          token: "${{ secrets.GITHUB_TOKEN }}"
-          fetch-depth: 0
-          
       - name: Setup Python
         uses: actions/setup-python@v4.2.0
         with:
@@ -48,20 +43,7 @@ jobs:
         run: sudo apt-get install -y python3-dev libasound2-dev
       - name: Setup packages
         run: python -m pip install -r requirements.txt
-      - name: Bump
-        if: endsWith(github.event.head_commit.message, ' !') 
-        run: |
-          python -m  pip install -U Commitizen
-          cz bump --files-only
-          export VER=$(python version_exporter.py)
-          echo "Bumped to version $VER"
-          sed s/nightly/$VER/ setup.bat > setup.tmp
-          rm setup.bat
-          mv setup.tmp setup.bat
-          echo "Replacing on delete.bat file"
-          sed s/nightly/$VER/ delete.bat > delete.tmp
-          rm delete.bat
-          mv delete.tmp delete.bat
+
       # Runs a set of commands using the runners shell
       - name: Package with PyInstaller
         run: |
@@ -71,3 +53,55 @@ jobs:
         with:
           name: "DiSH-${{ runner.os }}"
           path: "DiSH-*.zip"
+  deploy:
+    runs-on: ubuntu-latest
+    if: |
+      endsWith(github.event.head_commit.message, ' !') 
+    needs: ["build"]
+    steps:
+    
+      - name: Check out
+        uses: actions/checkout@v2
+        with:
+          token: "${{ secrets.GITHUB_TOKEN }}"
+          fetch-depth: 0
+
+      - name: Install additonal deps
+        if: runner.os == 'Linux'
+        run: sudo apt-get install -y python3-dev libasound2-dev
+      - name: Setup Python
+        uses: actions/setup-python@v4.2.0
+      - name: Setup packages
+        run: |
+          python -m pip install -r requirements.txt
+          python -m  pip install -U Commitizen  
+      - name: Bump and changelog
+        run: |
+          cz bump --files-only
+          cz changelog
+      - name: Install additonal deps
+        if: runner.os == 'Linux'
+        run: sudo apt-get install -y python3-dev libasound2-dev
+     
+      - name: Download build artifact (Linux)
+        uses: actions/download-artifact@v4.1.7
+        with:
+          name: DiSH-Linux
+      - name: Download build artifact (Windows)
+        uses: actions/download-artifact@v4.1.7
+        with:
+          name: DiSH-Windows
+            
+      
+      - name: Create Relese
+        uses: ncipollo/release-action@v1.10.0
+        with:
+          artifacts: "DiSH-*"
+          tag: "v${{ github.ref_name }}"
+          name: "DiSH-${{ env.VER }}"
+          bodyFile: "CHANGELOG.md"
+     
+  
+      
+      
+  

@@ -1,5 +1,0 @@
-requests
-discord.py
-playsound
-pillow
-python-dotenv
