@@ -1,0 +1,119 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Build
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "master" branch
+  push:
+    tags: [ "v.*" ]
+  pull_request:
+    branches: [ "master" ]
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    # The type of runner that the job will run on
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+      - name: Setup Python
+        uses: actions/setup-python@v4.2.0
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+  
+      # Runs a single command using the runners shell
+      - name: Setup ENV
+        run: export SHELL="/bin/bash"
+      - name: List files
+        run: ls
+      - name: Install additonal deps
+        if: runner.os == 'Linux'
+        run: sudo apt-get install -y python3-dev libasound2-dev
+      - name: Setup packages
+        run: python -m pip install -r requirements.txt
+
+      # Runs a set of commands using the runners shell
+      - name: Package with PyInstaller
+        run: |
+          echo "python build.py" | bash
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: "DiSH-${{ runner.os }}"
+          path: "DiSH-*.zip"
+  deploy:
+    runs-on: ubuntu-latest
+    if: |
+      endsWith(github.event.head_commit.message, ' !') 
+    needs: ["build"]
+    steps:
+    
+      - name: Check out
+        uses: actions/checkout@v2
+        with:
+          token: "${{ secrets.GITHUB_TOKEN }}"
+          fetch-depth: 0
+
+      - name: Install additonal deps
+        if: runner.os == 'Linux'
+        run: sudo apt-get install -y python3-dev libasound2-dev
+      - name: Setup Python
+        uses: actions/setup-python@v4.2.0
+      - name: Setup packages
+        run: |
+          python -m pip install -r requirements.txt
+          python -m  pip install -U Commitizen  
+      - name: Bump and changelog
+        run: |
+          cz bump --files-only
+          cz changelog
+      - name: Install additonal deps
+        if: runner.os == 'Linux'
+        run: sudo apt-get install -y python3-dev libasound2-dev
+      - name: Git Commit and Push
+        uses: EndBug/add-and-commit@v8
+        with:
+          
+          message: "bump: update version"
+          author_name: github-actions[bot]
+          author_email: github-actions[bot]@users.noreply.github.com
+      - name: Download build artifact (Linux)
+        uses: actions/download-artifact@v4.1.7
+        with:
+          name: DiSH-Linux
+      - name: Download build artifact (Windows)
+        uses: actions/download-artifact@v4.1.7
+        with:
+          name: DiSH-Windows
+      - name: Print Version
+        run: echo "Bumped to version ${{ steps.cz.outputs.version }}"
+      
+      - name: Get short hash
+        run: |
+          echo "VER=$(python version_exporter.py)" >> $GITHUB_ENV
+          python version_exporter.py
+      - name: Create Relese
+        uses: ncipollo/release-action@v1.10.0
+        with:
+          artifacts: "DiSH-*"
+          tag: "v${{ env.VER }}"
+          name: "DiSH-${{ env.VER }}"
+          bodyFile: "CHANGELOG.md"
+     
+  
+      
+      
+  
