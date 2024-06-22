@@ -8,6 +8,7 @@ with open("cz.yaml", "r") as stream:
         print(exc)
 
 print("Packaging with pyinstaller")
+os.chdir("src")
 exitcode = os.system("pyinstaller --name DiSH --onefile --windowed main.py")
 
 
