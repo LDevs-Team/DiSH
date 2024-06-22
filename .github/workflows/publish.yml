@@ -92,7 +92,7 @@ jobs:
         with:
           artifacts: "DiSH-*"
           tag: "v${{ github.ref_name }}"
-          name: "DiSH-${{ env.VER }}"
+          name: "DiSH-${{ github.ref_name }}"
           bodyFile: "CHANGELOG.md"
      
   
