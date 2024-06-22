@@ -22,8 +22,7 @@ with zipfile.ZipFile("DiSH-{}.zip".format(platform.system()), "w", zipfile.ZIP_D
     for a in g:
         zip.write(a)
     zip.write("main.py")
-    zip.write("setup.bat")
-    zip.write("requirements.txt")
-    zip.write("README.md")
-    zip.write("LICENSE")
-    zip.write("CHANGELOG.md")
+    zip.write("../setup.bat", "setup.bat")
+    zip.write("../README.md", "README.md")
+    zip.write("../LICENSE", "LICENSE")
+    zip.write("../CHANGELOG.md", "CHANGELOG.md")
