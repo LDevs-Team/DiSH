@@ -11,7 +11,7 @@ def filetowav(ofn):
     x.export(wfn, format='wav') 
     
 
-async def play(client, message: discord.Message, args: str):
+async def play(client, message: discord.Message, args: str, send):
     """
     It plays the sound file that was attached to the message
 

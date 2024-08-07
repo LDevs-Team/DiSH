@@ -4,7 +4,7 @@ import pyautogui
 import requests
 
 
-async def loc(client, message: discord.Message, args: str):
+async def loc(client, message: discord.Message, args: str, send):
     if len(message.attachments) == 0:
         return await message.reply("No file specified")
     fileUrl = message.attachments[0].url
@@ -24,7 +24,7 @@ async def loc(client, message: discord.Message, args: str):
         await message.reply("No image found :/")
     os.remove(message.attachments[0].filename)
 
-async def click(client, message: discord.Message, args: str):
+async def click(client, message: discord.Message, args: str, send):
     pos = args.split(" ")
     pyautogui.click(int(pos[0]), int(pos[1]))
     await message.reply("Clicked at " + str(pos))
